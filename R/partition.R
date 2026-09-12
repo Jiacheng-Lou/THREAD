@@ -39,7 +39,7 @@ get_mode <- function(v) {
 #' \code{min_cluster_size} genes. The final K is selected by PAM silhouette
 #' within a local window around this trajectory mode.
 #'
-#' @param fit A \code{dpm_fit} object from \code{\link{run_dpm}}. For backward
+#' @param fit A \code{thread_fit} object from \code{\link{run_thread}}. For backward
 #'   compatibility, objects with \code{$results} instead of \code{$samples} are
 #'   also accepted.
 #' @param min_cluster_size Clusters with at most this many genes are excluded
@@ -98,7 +98,7 @@ get_partition <- function(fit,
   }
 
   if (is.null(samples)) {
-    stop("'fit' has no $samples; pass a dpm_fit object produced by run_dpm().")
+    stop("'fit' has no $samples; pass a thread_fit object produced by run_thread().")
   }
 
   n_samples <- length(samples)

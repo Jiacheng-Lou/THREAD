@@ -4,8 +4,8 @@
 # that the main loop and every conditional update it calls can be read
 # together.
 #
-#   run_dpm()                public entry point; consumes a `dpm_data` object
-#                            and returns a `dpm_fit` object
+#   run_thread()             public entry point; consumes a `thread_data` object
+#                            and returns a `thread_fit` object
 #
 # Internal conditional updates (not exported):
 #   initialize_parameters()  starting state (external labels or k-means)
@@ -17,7 +17,7 @@
 #
 # The cluster-label update (Neal's Algorithm 8) is implemented in C++ and lives
 # in src/update_clusters.cpp; it is exposed to R as update_clusters_cpp_hetero()
-# and called directly from run_dpm().
+# and called directly from run_thread().
 # -----------------------------------------------------------------------------
 
 
@@ -297,23 +297,23 @@ update_lambda2 <- function(tau2_k, r, delta) {
 }
 
 
-#' Fit the DPM model by MCMC
+#' Fit the THREAD model by MCMC
 #'
 #' @description
-#' Runs the Dirichlet-process-mixture sampler on a prepared \code{dpm_data}
-#' object and returns a \code{dpm_fit} object holding the posterior draws,
+#' Runs the Dirichlet-process-mixture sampler on a prepared \code{thread_data}
+#' object and returns a \code{thread_fit} object holding the posterior draws,
 #' diagnostics and settings. Cluster labels are updated by Neal's Algorithm 8
 #' (auxiliary components proposed from the prior); the coefficient vectors are
 #' updated by stepping-out slice sampling; the Bayesian-Lasso scale parameters
 #' have closed-form conjugate updates.
 #'
 #' All hyperparameters are explicit arguments or are read from
-#' \code{dpm_data$priors}; the function holds no hidden state. Posterior draws
+#' \code{thread_data$priors}; the function holds no hidden state. Posterior draws
 #' are stored separately from the input data because they can be large; the
-#' downstream functions therefore take both the \code{dpm_fit} and the
-#' \code{dpm_data}.
+#' downstream functions therefore take both the \code{thread_fit} and the
+#' \code{thread_data}.
 #'
-#' @param dpm_data A list produced by \code{prepare_input()} containing at least
+#' @param thread_data A list produced by \code{prepare_input()} containing at least
 #'   \code{x_train} (gene-by-subtype matrix), \code{y_train} (response vector),
 #'   \code{d0}, \code{d1}, \code{d2} (heteroscedastic-variance coefficients) and,
 #'   optionally, \code{z_init} (starting labels), \code{gene_names} and
@@ -328,7 +328,7 @@ update_lambda2 <- function(tau2_k, r, delta) {
 #' @param burnin Number of initial iterations discarded. Default \code{25000}.
 #' @param thin Keep one draw every \code{thin} post-burn-in iterations. Default
 #'   set to \code{1} to keep every draw (larger output).
-#' @param priors Optional list overriding \code{dpm_data$priors}; must contain
+#' @param priors Optional list overriding \code{thread_data$priors}; must contain
 #'   \code{alpha0}, \code{beta0}, \code{r}, \code{delta}.
 #' @param seed Optional integer random seed for reproducibility. Default
 #'   \code{NULL}.
@@ -341,7 +341,7 @@ update_lambda2 <- function(tau2_k, r, delta) {
 #'   posterior draw. Default FALSE because these objects can substantially
 #'   increase memory and storage use.
 #'
-#' @return An object of class \code{dpm_fit}: a list with
+#' @return An object of class \code{thread_fit}: a list with
 #'   \describe{
 #'     \item{samples}{list with one element per retained draw, each a list of
 #'       \code{z} (labels), \code{gamma} (K-by-p coefficient matrix),
@@ -355,14 +355,14 @@ update_lambda2 <- function(tau2_k, r, delta) {
 #'
 #' @examples
 #' \dontrun{
-#' fit <- run_dpm(dpm_data, n_iter = 30000, burnin = 25000, thin = 1, seed = 123)
+#' fit <- run_thread(thread_data, n_iter = 30000, burnin = 25000, thin = 1, seed = 123)
 #' table(fit$diagnostics$cluster_counts)
 #' }
 #'
 #' @importFrom stats rgamma rnorm rexp
 #' @importFrom utils txtProgressBar setTxtProgressBar
 #' @export
-run_dpm <- function(dpm_data,
+run_thread <- function(thread_data,
                     alpha = 0.1,
                     m = 3,
                     K_init = 10,
@@ -485,10 +485,10 @@ run_dpm <- function(dpm_data,
     )
   }
 
-  # ---- validate dpm_data ----------------------------------------------------
-  if (!is.list(dpm_data)) {
+  # ---- validate thread_data -------------------------------------------------
+  if (!is.list(thread_data)) {
     stop(
-      "'dpm_data' must be a list produced by prepare_input()."
+      "'thread_data' must be a list produced by prepare_input()."
     )
   }
 
@@ -502,24 +502,24 @@ run_dpm <- function(dpm_data,
 
   missing_fields <- setdiff(
     required_fields,
-    names(dpm_data)
+    names(thread_data)
   )
 
   if (length(missing_fields) > 0L) {
     stop(
-      "'dpm_data' is missing field(s): ",
+      "'thread_data' is missing field(s): ",
       paste(missing_fields, collapse = ", "),
       ". Build it with prepare_input()."
     )
   }
 
-  x_train <- as.matrix(dpm_data$x_train)
+  x_train <- as.matrix(thread_data$x_train)
   storage.mode(x_train) <- "double"
 
-  y_train <- as.numeric(dpm_data$y_train)
-  d0 <- as.numeric(dpm_data$d0)
-  d1 <- as.numeric(dpm_data$d1)
-  d2 <- as.numeric(dpm_data$d2)
+  y_train <- as.numeric(thread_data$y_train)
+  d0 <- as.numeric(thread_data$d0)
+  d1 <- as.numeric(thread_data$d1)
+  d2 <- as.numeric(thread_data$d2)
 
   if (nrow(x_train) == 0L ||
     ncol(x_train) == 0L) {
@@ -582,13 +582,13 @@ run_dpm <- function(dpm_data,
 
   # ---- validate priors ------------------------------------------------------
   if (is.null(priors)) {
-    priors <- dpm_data$priors
+    priors <- thread_data$priors
   }
 
   if (is.null(priors)) {
     stop(
       "No priors found: pass 'priors' or include them in ",
-      "'dpm_data$priors'."
+      "'thread_data$priors'."
     )
   }
 
@@ -629,7 +629,7 @@ run_dpm <- function(dpm_data,
   )
 
   # ---- starting labels ------------------------------------------------------
-  z_init <- dpm_data$z_init
+  z_init <- thread_data$z_init
 
   if (!is.null(z_init)) {
     if (length(z_init) != N) {
@@ -682,7 +682,7 @@ run_dpm <- function(dpm_data,
   }
 
   # ---- metadata -------------------------------------------------------------
-  gene_names <- dpm_data$gene_names
+  gene_names <- thread_data$gene_names
 
   if (is.null(gene_names)) {
     gene_names <- rownames(x_train)
@@ -1120,6 +1120,6 @@ run_dpm <- function(dpm_data,
         subtype_names = subtype_names
       )
     ),
-    class = "dpm_fit"
+    class = "thread_fit"
   )
 }

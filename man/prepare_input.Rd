@@ -60,14 +60,14 @@ named vector, or a data frame with gene and cluster columns.}
 \item{...}{Reserved for future extensions.}
 }
 \value{
-A list of class \code{dpm_data} with x_train, y_train, d0, d1, d2,
+A list of class \code{thread_data} with x_train, y_train, d0, d1, d2,
 z_init, gene_names and priors.
 }
 \description{
 Aligns a gene-by-subtype expression matrix with a gene-level GWAS response,
 creates or validates initial cluster labels, recommends prior hyperparameters
-when they are not supplied, and returns a \code{dpm_data} object consumed by
-\code{run_dpm()}.
+when they are not supplied, and returns a \code{thread_data} object consumed by
+\code{run_thread()}.
 
 The response is kept on the raw LD-corrected scale. No log transform or
 truncation is applied to y, because y, d0, d1 and d2 must remain on the same

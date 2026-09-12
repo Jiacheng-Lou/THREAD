@@ -14,7 +14,7 @@ get_partition(
 )
 }
 \arguments{
-\item{fit}{A \code{dpm_fit} object from \code{\link{run_dpm}}. For backward
+\item{fit}{A \code{thread_fit} object from \code{\link{run_thread}}. For backward
 compatibility, objects with \code{$results} instead of \code{$samples} are
 also accepted.}
 

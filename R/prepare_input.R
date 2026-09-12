@@ -3,7 +3,7 @@
 # Data assembly for the DPM model.
 #
 #   prepare_input()      Align X and GWAS response, create z_init and priors,
-#                        and return a dpm_data object consumed by run_dpm().
+#                        and return a thread_data object consumed by run_thread().
 #   init_clusters()      Build starting gene labels from gene2vec when supplied;
 #                        otherwise fall back to k-means on cbind(y, X).
 #   recommend_priors()   Empirical-Bayes recommendation for alpha0/beta0/r/delta
@@ -19,7 +19,7 @@
 #         ↓ preprocess_scrna()
 # log-normalized pseudobulk gene × label matrix X
 #         ↓ prepare_input()
-# dpm_data
+# thread_data
 
 
 #' Detect a gene identifier column
@@ -770,8 +770,8 @@ recommend_priors <- function(X, response,
 #' @description
 #' Aligns a gene-by-subtype expression matrix with a gene-level GWAS response,
 #' creates or validates initial cluster labels, recommends prior hyperparameters
-#' when they are not supplied, and returns a \code{dpm_data} object consumed by
-#' \code{run_dpm()}.
+#' when they are not supplied, and returns a \code{thread_data} object consumed by
+#' \code{run_thread()}.
 #'
 #' The response is kept on the raw LD-corrected scale. No log transform or
 #' truncation is applied to y, because y, d0, d1 and d2 must remain on the same
@@ -797,7 +797,7 @@ recommend_priors <- function(X, response,
 #' @param verbose Logical.
 #' @param ... Reserved for future extensions.
 #'
-#' @return A list of class \code{dpm_data} with x_train, y_train, d0, d1, d2,
+#' @return A list of class \code{thread_data} with x_train, y_train, d0, d1, d2,
 #'   z_init, gene_names and priors.
 #'
 #' @export
@@ -910,13 +910,13 @@ prepare_input <- function(X, response,
 
   names(out$z_init) <- gene_names
 
-  class(out) <- "dpm_data"
+  class(out) <- "thread_data"
 
   if (verbose) {
     DPM_log(
       "Input",
       sprintf(
-        "Prepared dpm_data: %d genes x %d subtypes, K_init = %d.",
+        "Prepared thread_data: %d genes x %d subtypes, K_init = %d.",
         nrow(out$x_train), ncol(out$x_train), length(unique(out$z_init))
       )
     )
