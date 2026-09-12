@@ -1,6 +1,6 @@
-Package: DPM
+Package: THREAD
 Type: Package
-Title: Dirichlet Process Mixture for Gene-Level Polygenic Risk Decomposition
+Title: Trait Heterogeneity Regression through Expression Annotation and Dirichlet processes
 Version: 0.1.0
 Authors@R: person(given = "Jiacheng", family = "Lou",
            email = "jiachenglou82@gmail.com",
