@@ -1,8 +1,8 @@
-test_that("installed DPM example files are complete and unchanged", {
+test_that("installed THREAD example files are complete and unchanged", {
   example_dir <- system.file(
     "extdata",
     "example",
-    package = "DPM",
+    package = "THREAD",
     mustWork = TRUE
   )
 

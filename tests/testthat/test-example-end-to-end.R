@@ -1,8 +1,8 @@
-test_that("example data complete the DPM workflow", {
+test_that("example data complete the THREAD workflow", {
   example_dir <- system.file(
     "extdata",
     "example",
-    package = "DPM",
+    package = "THREAD",
     mustWork = TRUE
   )
 
@@ -20,7 +20,7 @@ test_that("example data complete the DPM workflow", {
     )
   )
 
-  dpm_data <- prepare_input(
+  thread_data <- prepare_input(
     X = X,
     response = response,
     K_init = 3L,
@@ -30,22 +30,22 @@ test_that("example data complete the DPM workflow", {
   )
 
   expect_s3_class(
-    dpm_data,
-    "dpm_data"
+    thread_data,
+    "thread_data"
   )
 
   expect_equal(
-    nrow(dpm_data$x_train),
+    nrow(thread_data$x_train),
     nrow(X)
   )
 
   expect_equal(
-    ncol(dpm_data$x_train),
+    ncol(thread_data$x_train),
     ncol(X)
   )
 
-  fit <- run_dpm(
-    dpm_data = dpm_data,
+  fit <- run_thread(
+    thread_data = thread_data,
     alpha = 0.1,
     m = 2L,
     n_iter = 40L,
@@ -58,7 +58,7 @@ test_that("example data complete the DPM workflow", {
 
   expect_s3_class(
     fit,
-    "dpm_fit"
+    "thread_fit"
   )
 
   expect_length(
@@ -87,7 +87,7 @@ test_that("example data complete the DPM workflow", {
   sig <- test_significance(
     fit = fit,
     partition = partition,
-    dpm_data = dpm_data,
+    thread_data = thread_data,
     verbose = FALSE
   )
 
@@ -160,7 +160,7 @@ test_that("example data complete the DPM workflow", {
   gene_results <- gene_score(
     partition = partition,
     coefficients = sig$coefficients,
-    x_train = dpm_data$x_train,
+    x_train = thread_data$x_train,
     top_n = 10L,
     verbose = FALSE
   )

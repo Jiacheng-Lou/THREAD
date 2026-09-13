@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(DPM)
+library(THREAD)
 
-test_check("DPM")
+test_check("THREAD")
