@@ -2,7 +2,7 @@
 % Please edit documentation in R/compute_response.R
 \name{compute_response}
 \alias{compute_response}
-\title{Compute LD-based heteroscedastic gene-level DPM response}
+\title{Compute LD-based heteroscedastic gene-level THREAD response}
 \usage{
 compute_response(
   gene_snp_matches = NULL,
@@ -129,5 +129,5 @@ A data.frame containing gene_name, n_snps, d0, d1, d2, final_y,
 status and, optionally, LD diagnostic columns.
 }
 \description{
-Compute LD-based heteroscedastic gene-level DPM response
+Compute LD-based heteroscedastic gene-level THREAD response
 }

@@ -10,7 +10,7 @@ gene_score(
   x_train,
   top_n = 200,
   out_dir = NULL,
-  prefix = "DPM",
+  prefix = "THREAD",
   verbose = TRUE
 )
 }
@@ -33,7 +33,7 @@ written per module. When \code{NULL} (default) no file is written and the
 data are only returned.}
 
 \item{prefix}{File-name prefix used when \code{out_dir} is supplied. Default
-\code{"DPM"}.}
+\code{"THREAD"}.}
 
 \item{verbose}{Logical; print a short summary. Default \code{TRUE}.}
 }

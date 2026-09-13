@@ -2,7 +2,7 @@
 % Please edit documentation in R/partition.R
 \name{get_partition}
 \alias{get_partition}
-\title{Point estimate of the gene partition from a fitted DPM model}
+\title{Point estimate of the gene partition from a fitted THREAD model}
 \usage{
 get_partition(
   fit,

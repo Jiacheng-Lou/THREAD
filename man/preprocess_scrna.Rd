@@ -2,7 +2,7 @@
 % Please edit documentation in R/scrna.R
 \name{preprocess_scrna}
 \alias{preprocess_scrna}
-\title{Preprocess single-cell expression into a DPM expression matrix}
+\title{Preprocess single-cell expression into a THREAD expression matrix}
 \usage{
 preprocess_scrna(
   object,

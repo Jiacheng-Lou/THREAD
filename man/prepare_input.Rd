@@ -2,7 +2,7 @@
 % Please edit documentation in R/prepare_input.R
 \name{prepare_input}
 \alias{prepare_input}
-\title{Prepare DPM model input}
+\title{Prepare THREAD model input}
 \usage{
 prepare_input(
   X,
