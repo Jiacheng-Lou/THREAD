@@ -1,8 +1,8 @@
 ---
-title: "DPM Input Formats and Workflow Entry Points"
+title: "THREAD Input Formats and Workflow Entry Points"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{DPM Input Formats and Workflow Entry Points}
+  %\VignetteIndexEntry{THREAD Input Formats and Workflow Entry Points}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 
 ## Modular workflow
 
-DPM is organized as a modular workflow. Users may start from raw single-cell
+THREAD is organized as a modular workflow. Users may start from raw single-cell
 data and raw GWAS summary statistics, or enter at a later stage when prepared
 objects are already available.
 
@@ -36,7 +36,7 @@ raw GWAS summary statistics
 
 X + response
     -> prepare_input()
-    -> run_dpm()
+    -> run_thread()
     -> get_partition()
     -> test_significance()
     -> gene_score() and cell_type_score()
@@ -104,7 +104,7 @@ gwas_clean <- preprocess_gwas(
 ## Gene annotation and SNP-to-gene mapping
 
 A gene annotation table must provide a gene identifier, chromosome, start
-position, and end position. DPM maps SNPs to the annotated gene body extended
+position, and end position. THREAD maps SNPs to the annotated gene body extended
 by a user-defined genomic window.
 
 The standard mapping output contains:
@@ -175,7 +175,7 @@ transformed.
 ## Prepared model input
 
 ```{r}
-dpm_data <- prepare_input(
+thread_data <- prepare_input(
   X = X,
   response = response,
   gene2vec = gene2vec,
@@ -188,13 +188,13 @@ dpm_data <- prepare_input(
 `status == "ok"`, initializes gene labels, and recommends prior
 hyperparameters when required.
 
-Gene2vec is optional. When it is absent, DPM uses a k-means fallback.
+Gene2vec is optional. When it is absent, THREAD uses a k-means fallback.
 
 ## Model fitting
 
 ```{r}
-fit <- run_dpm(
-  dpm_data = dpm_data,
+fit <- run_thread(
+  thread_data = thread_data,
   alpha = 0.1,
   m = 3L,
   n_iter = 30000L,
@@ -223,7 +223,7 @@ partition <- get_partition(
 significance <- test_significance(
   fit = fit,
   partition = partition,
-  dpm_data = dpm_data,
+  thread_data = thread_data,
   fdr_thr = 0.05,
   lfsr_thr = 0.05
 )
@@ -242,7 +242,7 @@ retained, but frequentist standard errors, P values, and FDR values are set to
 gene_results <- gene_score(
   partition = partition,
   coefficients = significance$coefficients,
-  x_train = dpm_data$x_train
+  x_train = thread_data$x_train
 )
 
 cellular_results <- cell_type_score(significance)
@@ -253,15 +253,15 @@ significance tests.
 
 ## Supported entry points
 
-| Available inputs | First required DPM function |
+| Available inputs | First required THREAD function |
 |---|---|
 | Raw single-cell data and raw GWAS | `preprocess_scrna()` and `preprocess_gwas()` |
 | Gene-by-label matrix and raw GWAS | `preprocess_gwas()` |
 | Clean GWAS and gene annotation | `match_snps_to_genes()` |
 | SNP-gene map, clean GWAS, and LD | `compute_response()` |
 | Expression matrix and response | `prepare_input()` |
-| Prepared `dpm_data` | `run_dpm()` |
-| Fitted `dpm_fit` | `get_partition()` |
+| Prepared `thread_data` | `run_thread()` |
+| Fitted `thread_fit` | `get_partition()` |
 | Fit, partition, and model data | `test_significance()` |
 | Significance output | `gene_score()` and `cell_type_score()` |
 
