@@ -866,7 +866,7 @@ compute_gene_hetero_metrics <- function(g_data,
   )
 }
 
-#' Compute LD-based heteroscedastic gene-level DPM response
+#' Compute LD-based heteroscedastic gene-level THREAD response
 #'
 #' @param gene_snp_matches A data.frame/data.table or file path to gene-SNP
 #'   matches.

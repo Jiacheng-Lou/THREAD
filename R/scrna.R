@@ -1,17 +1,17 @@
 # scrna.R
 # -----------------------------------------------------------------------------
 # Utilities for converting a quality-controlled single-cell expression object
-# into the gene-by-label expression matrix used by DPM.
+# into the gene-by-label expression matrix used by THREAD.
 #
 # Design principle:
-#   DPM itself requires only a gene x label matrix X. This file provides a
+#   THREAD itself requires only a gene x label matrix X. This file provides a
 #   lightweight helper for users who start from a Seurat object or from a
 #   gene x cell matrix plus cell metadata. It does not attempt to perform a full
 #   single-cell QC workflow, batch correction, integration, or cell annotation.
 # -----------------------------------------------------------------------------
 
 
-#' Preprocess single-cell expression into a DPM expression matrix
+#' Preprocess single-cell expression into a THREAD expression matrix
 #'
 #' @description
 #' Converts a Seurat object or a gene-by-cell expression matrix into a

@@ -1,6 +1,6 @@
 # mcmc.R
 # -----------------------------------------------------------------------------
-# Core MCMC sampler for the DPM model. The whole sampler lives in one file so
+# Core MCMC sampler for the THREAD model. The whole sampler lives in one file so
 # that the main loop and every conditional update it calls can be read
 # together.
 #

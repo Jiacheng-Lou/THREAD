@@ -1,6 +1,6 @@
 # prepare_input.R
 # -----------------------------------------------------------------------------
-# Data assembly for the DPM model.
+# Data assembly for the THREAD model.
 #
 #   prepare_input()      Align X and GWAS response, create z_init and priors,
 #                        and return a thread_data object consumed by run_thread().
@@ -765,7 +765,7 @@ recommend_priors <- function(X, response,
 }
 
 
-#' Prepare DPM model input
+#' Prepare THREAD model input
 #'
 #' @description
 #' Aligns a gene-by-subtype expression matrix with a gene-level GWAS response,

@@ -29,7 +29,7 @@ get_mode <- function(v) {
 }
 
 
-#' Point estimate of the gene partition from a fitted DPM model
+#' Point estimate of the gene partition from a fitted THREAD model
 #'
 #' @description
 #' Turns posterior label draws into a single point-estimate partition. Because
