@@ -22,9 +22,9 @@ articles:
   - input-formats-and-entry-points
 
 home:
-  title: DPM
+  title: THREAD
   description: >
-    Dirichlet Process Mixture for Polygenic Risk Decomposition using
+    Trait Heterogeneity Regression through Expression Annotation and Dirichlet processes using
     LD-corrected gene-level GWAS responses and gene-by-cellular-label
     expression profiles.
 
