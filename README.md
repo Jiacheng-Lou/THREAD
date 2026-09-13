@@ -1,25 +1,26 @@
 
 <!-- README.md is generated from README.Rmd. Edit README.Rmd, then run devtools::build_readme(). -->
 
-# DPM
+# THREAD
 
 [![R-CMD-check](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml)
 [![pkgdown](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml)
 
-**DPM** (*Dirichlet Process Mixture for Polygenic Risk Decomposition*)
-is an R package for integrating LD-corrected gene-level GWAS response
-statistics with gene-by-cellular-label expression profiles. DPM infers
-latent gene modules and estimates module-specific cellular coefficients
-under a heteroscedastic Bayesian nonparametric model.
+**THREAD** (*Trait Heterogeneity Regression through Expression
+Annotation and Dirichlet processes*) is an R package for integrating
+LD-corrected gene-level GWAS response statistics with
+gene-by-cellular-label expression profiles. THREAD infers latent gene
+modules and estimates module-specific cellular coefficients under a
+heteroscedastic Bayesian nonparametric model.
 
 The package supports a modular workflow. Users can start from raw GWAS
 and single-cell inputs, from an externally prepared SNP-to-gene map,
-from an existing gene-level response, or directly from a prepared DPM
+from an existing gene-level response, or directly from a prepared THREAD
 model object.
 
 ## Main capabilities
 
-DPM provides:
+THREAD provides:
 
 - preprocessing of GWAS summary statistics;
 - aggregation of single-cell expression into a gene-by-cellular-label
@@ -55,23 +56,23 @@ remotes::install_github(
 Load the package:
 
 ```r
-library(DPM)
+library(THREAD)
 ```
 
 ## Quick start with the installed example data
 
-DPM includes a compact AD-derived example containing 200 genes and 31
+THREAD includes a compact AD-derived example containing 200 genes and 31
 cellular labels. The example is intended only for software testing and
 interface demonstration; it is not a complete disease analysis and
 should not be interpreted biologically.
 
 ``` r
-library(DPM)
+library(THREAD)
 
 example_dir <- system.file(
   "extdata",
   "example",
-  package = "DPM",
+  package = "THREAD",
   mustWork = TRUE
 )
 
@@ -90,7 +91,7 @@ head(example_response)
 Prepare aligned model input:
 
 ``` r
-dpm_data <- prepare_input(
+thread_data <- prepare_input(
   X = example_X,
   response = example_response,
   K_init = 3L,
@@ -100,11 +101,11 @@ dpm_data <- prepare_input(
 )
 ```
 
-Run DPM:
+Run THREAD:
 
 ``` r
-fit <- run_dpm(
-  dpm_data = dpm_data,
+fit <- run_thread(
+  thread_data = thread_data,
   alpha = 0.1,
   m = 3L,
   n_iter = 30000L,
@@ -140,7 +141,7 @@ Test module-cellular-label associations:
 significance <- test_significance(
   fit = fit,
   partition = partition,
-  dpm_data = dpm_data,
+  thread_data = thread_data,
   fdr_thr = 0.05,
   lfsr_thr = 0.05,
   cred_mass = 0.95,
@@ -157,7 +158,7 @@ Calculate downstream prioritization scores:
 gene_results <- gene_score(
   partition = partition,
   coefficients = significance$coefficients,
-  x_train = dpm_data$x_train,
+  x_train = thread_data$x_train,
   top_n = 20L,
   verbose = TRUE
 )
@@ -168,7 +169,7 @@ head(gene_results$top_genes)
 head(cellular_results)
 ```
 
-## Complete GWAS-to-DPM workflow
+## Complete GWAS-to-THREAD workflow
 
 ### 1. Construct a gene-by-cellular-label expression matrix
 
@@ -234,7 +235,7 @@ A SNP can map to multiple genes when extended gene windows overlap.
 ### 4. Compute the LD-corrected gene-level response
 
 ``` r
-checkpoint_dir <- file.path(tempdir(), "DPM_response_checkpoints")
+checkpoint_dir <- file.path(tempdir(), "THREAD_response_checkpoints")
 
 response <- compute_response(
   gene_snp_matches = gene_snp_matches,
@@ -264,13 +265,13 @@ gene_name, n_snps, final_y, d0, d1, d2, status
 Additional LD completeness and PSD-repair diagnostics are retained when
 `include_diagnostics = TRUE`.
 
-DPM retains negative values of `final_y`. They are not truncated or log
-transformed.
+THREAD retains negative values of `final_y`. They are not truncated or
+log transformed.
 
 ### 5. Prepare, fit, partition, and infer
 
 ``` r
-dpm_data <- prepare_input(
+thread_data <- prepare_input(
   X = X,
   response = response,
   gene2vec = NULL,
@@ -278,8 +279,8 @@ dpm_data <- prepare_input(
   seed = 2028L
 )
 
-fit <- run_dpm(
-  dpm_data = dpm_data,
+fit <- run_thread(
+  thread_data = thread_data,
   alpha = 0.1,
   m = 3L,
   n_iter = 30000L,
@@ -293,7 +294,7 @@ partition <- get_partition(fit)
 significance <- test_significance(
   fit = fit,
   partition = partition,
-  dpm_data = dpm_data
+  thread_data = thread_data
 )
 ```
 
@@ -327,30 +328,31 @@ ld_directory/
 ```
 
 Sparse LD storage may contain only one orientation of an off-diagonal
-pair. DPM automatically restores the reciprocal value and constructs a
-symmetric gene-level matrix. Pairs absent in both directions are treated
-as zero and reported through diagnostics.
+pair. THREAD automatically restores the reciprocal value and constructs
+a symmetric gene-level matrix. Pairs absent in both directions are
+treated as zero and reported through diagnostics.
 
 All GWAS, gene annotation, SNP-to-gene mapping, and LD resources used in
 position mode must use the same genome build.
 
 ## Supported workflow entry points
 
-| Available inputs | First DPM function |
+| Available inputs | First THREAD function |
 |----|----|
 | Raw single-cell data and raw GWAS | `preprocess_scrna()` and `preprocess_gwas()` |
 | Gene-by-label matrix and raw GWAS | `preprocess_gwas()` |
 | Clean GWAS and gene annotation | `match_snps_to_genes()` |
 | SNP-gene map, clean GWAS, and LD | `compute_response()` |
 | Expression matrix and gene-level response | `prepare_input()` |
-| Prepared `dpm_data` object | `run_dpm()` |
-| Fitted `dpm_fit` object | `get_partition()` |
+| Prepared `thread_data` object | `run_thread()` |
+| Fitted `thread_fit` object | `get_partition()` |
 | Fit, partition, and model data | `test_significance()` |
 | Significance output | `gene_score()` and `cell_type_score()` |
 
 ## Statistical interpretation
 
-DPM uses a heteroscedastic module-specific regression model of the form
+THREAD uses a heteroscedastic module-specific regression model of the
+form
 
 $$
 y_i \mid c_i = k \sim \mathcal{N}\left(x_i^\top \gamma_k,\;
@@ -369,23 +371,23 @@ Module-cellular-label associations are evaluated using both:
 An association is marked `dual_significant` only when both criteria pass
 their configured thresholds.
 
-For a module with no more genes than predictors, DPM retains descriptive
-coefficients but sets frequentist standard errors, P values, and FDR
-values to `NA`. Such a module cannot be dual-significant.
+For a module with no more genes than predictors, THREAD retains
+descriptive coefficients but sets frequentist standard errors, P values,
+and FDR values to `NA`. Such a module cannot be dual-significant.
 
 ## Documentation
 
 After installation:
 
 ``` r
-browseVignettes("DPM")
+browseVignettes("THREAD")
 ```
 
 The package includes:
 
-- **Getting Started with DPM**
+- **Getting Started with THREAD**
 - **Computing the LD-Corrected Gene-Level Response**
-- **DPM Input Formats and Workflow Entry Points**
+- **THREAD Input Formats and Workflow Entry Points**
 
 The pkgdown site is available at:
 
@@ -397,7 +399,7 @@ https://jiacheng-lou.github.io/DPM/
 
 For formal analyses, record at least:
 
-- DPM package version;
+- THREAD package version;
 - Git commit or GitHub release tag;
 - random seed;
 - GWAS and expression input versions;
@@ -413,12 +415,12 @@ end-to-end tests.
 To obtain the current package citation, run:
 
 ``` r
-citation("DPM")
+citation("THREAD")
 ```
 
 ## License
 
-DPM is released under GPL-3.
+THREAD is released under GPL-3.
 
 ## Issues and contact
 
