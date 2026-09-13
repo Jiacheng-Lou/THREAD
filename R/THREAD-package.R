@@ -24,6 +24,6 @@ if (getRversion() >= "2.15.1") {
 }
 
 # Internal helper for consistent package logging.
-DPM_log <- function(module, ..., sep = " ") {
-  message(sprintf("[DPM:%s] %s", module, paste(..., sep = sep)))
+THREAD_log <- function(module, ..., sep = " ") {
+  message(sprintf("[THREAD:%s] %s", module, paste(..., sep = sep)))
 }

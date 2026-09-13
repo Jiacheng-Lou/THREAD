@@ -207,7 +207,7 @@ fit_clusters_fgls <- function(x_train,
       message(
         sprintf(
           paste0(
-            "[DPM:Inference] Module %s has %s; ",
+            "[THREAD:Inference] Module %s has %s; ",
             "frequentist inference is underdetermined. ",
             "Coefficients are retained, but SE, P value and FDR are set to NA."
           ),
@@ -338,7 +338,7 @@ fit_clusters_fgls <- function(x_train,
     message(
       sprintf(
         paste0(
-          "[DPM:Inference] Frequentist inference was estimable for ",
+          "[THREAD:Inference] Frequentist inference was estimable for ",
           "%d of %d module(s)."
         ),
         n_estimable,
@@ -621,7 +621,7 @@ test_significance <- function(fit,
   if (verbose) {
     message(
       sprintf(
-        "[DPM:Inference] Frequentist inference (%s) over %d module(s).",
+        "[THREAD:Inference] Frequentist inference (%s) over %d module(s).",
         toupper(method),
         length(unique(assignments))
       )
@@ -644,7 +644,7 @@ test_significance <- function(fit,
   if (verbose) {
     message(
       paste0(
-        "[DPM:Inference] Bayesian inference (lFSR): ",
+        "[THREAD:Inference] Bayesian inference (lFSR): ",
         "aligning posterior draws to the partition."
       )
     )
@@ -719,7 +719,7 @@ test_significance <- function(fit,
     message(
       sprintf(
         paste0(
-          "[DPM:Inference] Dual-significant ",
+          "[THREAD:Inference] Dual-significant ",
           "(FDR < %.3g and lFSR < %.3g): ",
           "%d module-subtype association(s)."
         ),

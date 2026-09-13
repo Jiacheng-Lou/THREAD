@@ -93,7 +93,7 @@ get_partition <- function(fit,
   if (is.null(samples) && !is.null(fit$results)) {
     samples <- fit$results
     if (verbose) {
-      DPM_log("Partition", "Using legacy fit$results as posterior samples. Consider converting to fit$samples.")
+      THREAD_log("Partition", "Using legacy fit$results as posterior samples. Consider converting to fit$samples.")
     }
   }
 
@@ -152,7 +152,7 @@ get_partition <- function(fit,
   mode_freq_last <- sum(last_samples == mode_major_k) / last_n * 100
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Partition",
       sprintf(
         "Trajectory mode of major clusters: %d (overall %.1f%%, last %d draws %.1f%%).",
@@ -185,7 +185,7 @@ get_partition <- function(fit,
 
   if (mode_major_k <= 1L) {
     if (verbose) {
-      DPM_log("Partition", "Trajectory collapsed onto a single major cluster: returning K = 1.")
+      THREAD_log("Partition", "Trajectory collapsed onto a single major cluster: returning K = 1.")
     }
     return(collapse_to_one())
   }
@@ -210,7 +210,7 @@ get_partition <- function(fit,
   k_grid <- seq.int(lower_k, upper_k)
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Partition",
       sprintf(
         "Silhouette K search window: %s (mode_k = %d, mode_window = %d).",
@@ -252,7 +252,7 @@ get_partition <- function(fit,
 
   if (!is.null(min_silhouette) && max_sil < min_silhouette) {
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Partition",
         sprintf(
           "Max silhouette %.3f < min_silhouette %.3f; collapsing to K = 1.",
@@ -264,7 +264,7 @@ get_partition <- function(fit,
   }
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Partition",
       sprintf(
         "Selected K = %d by maximum average silhouette width within the mode-local window (%.3f).",

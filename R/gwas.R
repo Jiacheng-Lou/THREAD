@@ -86,7 +86,7 @@ preprocess_gwas <- function(sumstats,
   # ---- load ------------------------------------------------------------------
   if (is.character(sumstats) && length(sumstats) == 1L) {
     if (!file.exists(sumstats)) stop("File not found: ", sumstats)
-    if (verbose) DPM_log("GWAS", "Reading summary statistics from:", sumstats)
+    if (verbose) THREAD_log("GWAS", "Reading summary statistics from:", sumstats)
     dt <- data.table::fread(sumstats, na.strings = c("NA", "", "."))
   } else {
     dt <- data.table::as.data.table(sumstats)
@@ -147,11 +147,11 @@ preprocess_gwas <- function(sumstats,
   }
 
   n0 <- nrow(dt)
-  if (verbose) DPM_log("GWAS", sprintf("Loaded %d SNPs.", n0))
+  if (verbose) THREAD_log("GWAS", sprintf("Loaded %d SNPs.", n0))
 
   log_step <- function(before, after, label) {
     if (verbose) {
-      DPM_log("GWAS", sprintf(
+      THREAD_log("GWAS", sprintf(
         "%-32s %9d -> %9d  (removed %d)",
         label, before, after, before - after
       ))
@@ -190,7 +190,7 @@ preprocess_gwas <- function(sumstats,
     dt <- dt[!is.na(maf) & maf >= maf_min]
     log_step(b, nrow(dt), sprintf("drop MAF < %g", maf_min))
   } else if (verbose) {
-    DPM_log("GWAS", "(no MAF/freq column - MAF filter skipped)")
+    THREAD_log("GWAS", "(no MAF/freq column - MAF filter skipped)")
   }
 
   if ("info" %in% names(dt)) {
@@ -218,6 +218,6 @@ preprocess_gwas <- function(sumstats,
   data.table::setorder(dt, chrom, pos)
 
   if (nrow(dt) == 0L) warning("No SNPs passed quality control.")
-  if (verbose) DPM_log("GWAS", sprintf("Done. %d of %d SNPs passed QC.", nrow(dt), n0))
+  if (verbose) THREAD_log("GWAS", sprintf("Done. %d of %d SNPs passed QC.", nrow(dt), n0))
   dt[]
 }

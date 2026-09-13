@@ -45,7 +45,7 @@
 #'   written per module. When \code{NULL} (default) no file is written and the
 #'   data are only returned.
 #' @param prefix File-name prefix used when \code{out_dir} is supplied. Default
-#'   \code{"DPM"}.
+#'   \code{"THREAD"}.
 #' @param verbose Logical; print a short summary. Default \code{TRUE}.
 #'
 #' @return A list with
@@ -67,7 +67,7 @@
 #' @importFrom utils write.csv
 #' @export
 gene_score <- function(partition, coefficients, x_train,
-                       top_n = 200, out_dir = NULL, prefix = "DPM",
+                       top_n = 200, out_dir = NULL, prefix = "THREAD",
                        verbose = TRUE) {
   assignments <- partition$assignments
   if (is.null(assignments)) stop("'partition' has no $assignments; use get_partition().")
@@ -143,7 +143,7 @@ gene_score <- function(partition, coefficients, x_train,
       utils::write.csv(sub, file = fn, row.names = FALSE)
     }
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Scores",
         sprintf(
           "Wrote top-%d gene tables for %d module(s) to %s.",
@@ -157,7 +157,7 @@ gene_score <- function(partition, coefficients, x_train,
   if (verbose) {
     n_na <- sum(is.na(scores))
     if (n_na > 0L) {
-      DPM_log(
+      THREAD_log(
         "Scores",
         sprintf("%d gene(s) belong to a module without coefficients (score = NA).", n_na)
       )

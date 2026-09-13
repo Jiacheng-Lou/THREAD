@@ -658,7 +658,7 @@ run_thread <- function(thread_data,
     K_init_used <- max(z_init)
 
     if (verbose && K_init_used != K_init) {
-      DPM_log(
+      THREAD_log(
         "MCMC",
         sprintf(
           "Using K_init = %d from supplied z_init (ignoring K_init = %d).",
@@ -741,7 +741,7 @@ run_thread <- function(thread_data,
   }
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "MCMC",
       sprintf(
         "%d genes x %d subtypes | alpha = %g, m = %d, K_init = %d",
@@ -753,7 +753,7 @@ run_thread <- function(thread_data,
       )
     )
 
-    DPM_log(
+    THREAD_log(
       "MCMC",
       sprintf(
         "iterations = %d, burnin = %d, thin = %d, expected retained draws = %d",
@@ -764,12 +764,12 @@ run_thread <- function(thread_data,
       )
     )
 
-    DPM_log(
+    THREAD_log(
       "MCMC",
       sprintf("auxiliary-cluster proposal prior_sd = %.6g", prior_sd_proposal)
     )
 
-    DPM_log("MCMC", "save_scales = ", save_scales)
+    THREAD_log("MCMC", "save_scales = ", save_scales)
   }
 
   # ---- initialise sampler ---------------------------------------------------
@@ -1069,7 +1069,7 @@ run_thread <- function(thread_data,
   }
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "MCMC",
       sprintf(
         "MCMC complete in %s. Retained %d draws.",
@@ -1078,7 +1078,7 @@ run_thread <- function(thread_data,
       )
     )
 
-    DPM_log(
+    THREAD_log(
       "MCMC",
       sprintf(
         "Occupied modules across retained draws: min = %d, median = %.1f, max = %d.",

@@ -169,12 +169,12 @@ preprocess_scrna <- function(object,
         seurat_verbose = seurat_verbose
       )
       if (verbose) {
-        DPM_log("Input", "Applied Seurat::NormalizeData() to matrix input.")
+        THREAD_log("Input", "Applied Seurat::NormalizeData() to matrix input.")
       }
     } else {
       validate_nonnegative_matrix(expr, object_name = "object")
       if (verbose) {
-        DPM_log("Input", "Matrix input was treated as already normalized non-negative expression.")
+        THREAD_log("Input", "Matrix input was treated as already normalized non-negative expression.")
       }
     }
   }
@@ -209,7 +209,7 @@ preprocess_scrna <- function(object,
   if (length(keep_levels) < length(label_counts)) {
     dropped <- setdiff(names(label_counts), keep_levels)
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Input",
         "Dropping ", length(dropped),
         " label(s) with fewer than min_cells_per_subtype cells: ",
@@ -230,7 +230,7 @@ preprocess_scrna <- function(object,
       stop("No genes remain after applying min_cells_per_gene.")
     }
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Input",
         "Keeping ", sum(keep_genes), " of ", length(keep_genes),
         " genes after min_cells_per_gene filtering."
@@ -249,7 +249,7 @@ preprocess_scrna <- function(object,
       pseudocount = pseudocount
     )
     if (verbose) {
-      DPM_log("Input", "Applied second log transform to pseudobulk means.")
+      THREAD_log("Input", "Applied second log transform to pseudobulk means.")
     }
   }
 
@@ -260,9 +260,9 @@ preprocess_scrna <- function(object,
   validate_pseudobulk_matrix(X)
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Input",
-      "Generated DPM expression matrix with ", nrow(X),
+      "Generated THREAD expression matrix with ", nrow(X),
       " genes and ", ncol(X), " label column(s)."
     )
   }
@@ -411,7 +411,7 @@ extract_expression_from_seurat <- function(object,
       verbose = seurat_verbose
     )
     if (verbose) {
-      DPM_log("Input", "Applied Seurat::NormalizeData() to Seurat object input.")
+      THREAD_log("Input", "Applied Seurat::NormalizeData() to Seurat object input.")
     }
   }
 
