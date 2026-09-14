@@ -15,7 +15,7 @@ bibentry(
   ),
   year = "2026",
   note = paste("R package version", meta$Version),
-  url = "https://github.com/Jiacheng-Lou/DPM"
+  url = "https://github.com/Jiacheng-Lou/THREAD"
 )
 
 # # 未来论文发表后追加的示例：
