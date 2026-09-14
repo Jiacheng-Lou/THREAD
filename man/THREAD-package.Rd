@@ -13,9 +13,9 @@ module-specific cellular coefficients.
 \seealso{
 Useful links:
 \itemize{
-  \item \url{https://jiacheng-lou.github.io/DPM/}
-  \item \url{https://github.com/Jiacheng-Lou/DPM}
-  \item Report bugs at \url{https://github.com/Jiacheng-Lou/DPM/issues}
+  \item \url{https://jiacheng-lou.github.io/THREAD/}
+  \item \url{https://github.com/Jiacheng-Lou/THREAD}
+  \item Report bugs at \url{https://github.com/Jiacheng-Lou/THREAD/issues}
 }
 
 }
