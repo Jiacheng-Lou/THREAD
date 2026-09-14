@@ -62,7 +62,7 @@ by \code{chrom} then \code{pos}.
 }
 \description{
 Applies a standard set of GWAS quality-control filters and returns a clean,
-uniformly named table that the downstream DPM functions consume. The input
+uniformly named table that the downstream THREAD functions consume. The input
 may use any column names; supply \code{col_map} to declare which of your
 columns correspond to the required fields. A user who already holds a clean
 table with the standard column names can pass it straight to

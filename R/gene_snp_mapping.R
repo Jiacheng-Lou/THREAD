@@ -161,7 +161,7 @@ standardize_gene_annotation_for_matching <- function(annotation,
   data.table::setorder(out, chrom, start, end, gene_name)
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Mapping",
       sprintf(
         "Standardized gene annotation for matching: %d gene record(s) across %d chromosome(s).",
@@ -263,7 +263,7 @@ standardize_gwas_for_matching <- function(gwas,
   )
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Mapping",
       "Standardized GWAS summary statistics for matching: ",
       nrow(out), " SNP record(s) across ",
@@ -355,7 +355,7 @@ match_snps_to_genes <- function(gwas,
   data.table::setkey(snps_dt, chrom, start, end)
 
   if (verbose) {
-    DPM_log("Mapping", "Performing SNP-to-gene overlap matching with foverlaps(type = 'within')...")
+    THREAD_log("Mapping", "Performing SNP-to-gene overlap matching with foverlaps(type = 'within')...")
   }
 
   matches <- data.table::foverlaps(
@@ -422,7 +422,7 @@ match_snps_to_genes <- function(gwas,
   )
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Mapping",
       sprintf(
         "Matched %d SNP(s) to %d gene(s), producing %d SNP-gene pair(s).",

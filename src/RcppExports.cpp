@@ -12,7 +12,7 @@ Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 
 // calcDissimilarityMatrixCpp
 NumericMatrix calcDissimilarityMatrixCpp(IntegerMatrix zmat);
-RcppExport SEXP _DPM_calcDissimilarityMatrixCpp(SEXP zmatSEXP) {
+RcppExport SEXP _THREAD_calcDissimilarityMatrixCpp(SEXP zmatSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -23,7 +23,7 @@ END_RCPP
 }
 // update_clusters_cpp_hetero
 List update_clusters_cpp_hetero(NumericMatrix x_train, NumericVector y_train, NumericVector d0, NumericVector d1, NumericVector d2, IntegerVector z, NumericMatrix gamma, double alpha, int m, double prior_sd);
-RcppExport SEXP _DPM_update_clusters_cpp_hetero(SEXP x_trainSEXP, SEXP y_trainSEXP, SEXP d0SEXP, SEXP d1SEXP, SEXP d2SEXP, SEXP zSEXP, SEXP gammaSEXP, SEXP alphaSEXP, SEXP mSEXP, SEXP prior_sdSEXP) {
+RcppExport SEXP _THREAD_update_clusters_cpp_hetero(SEXP x_trainSEXP, SEXP y_trainSEXP, SEXP d0SEXP, SEXP d1SEXP, SEXP d2SEXP, SEXP zSEXP, SEXP gammaSEXP, SEXP alphaSEXP, SEXP mSEXP, SEXP prior_sdSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -43,12 +43,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_DPM_calcDissimilarityMatrixCpp", (DL_FUNC) &_DPM_calcDissimilarityMatrixCpp, 1},
-    {"_DPM_update_clusters_cpp_hetero", (DL_FUNC) &_DPM_update_clusters_cpp_hetero, 10},
+    {"_THREAD_calcDissimilarityMatrixCpp", (DL_FUNC) &_THREAD_calcDissimilarityMatrixCpp, 1},
+    {"_THREAD_update_clusters_cpp_hetero", (DL_FUNC) &_THREAD_update_clusters_cpp_hetero, 10},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_DPM(DllInfo *dll) {
+RcppExport void R_init_THREAD(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

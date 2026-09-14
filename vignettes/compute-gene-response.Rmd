@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-DPM models a gene-level response derived from GWAS marginal effect estimates
+THREAD models a gene-level response derived from GWAS marginal effect estimates
 and local linkage disequilibrium. For each gene, `compute_response()` returns:
 
 - `final_y`, the LD-corrected response;
@@ -28,12 +28,12 @@ and local linkage disequilibrium. For each gene, `compute_response()` returns:
 ## Locate the installed example inputs
 
 ```{r locate-example}
-library(DPM)
+library(THREAD)
 
 example_dir <- system.file(
   "extdata",
   "example",
-  package = "DPM",
+  package = "THREAD",
   mustWork = TRUE
 )
 
@@ -158,7 +158,7 @@ build.
 ## LD matrix reconstruction
 
 Chromosome-level LD files may store an off-diagonal SNP pair in only one
-direction. DPM recovers the reciprocal entry and constructs a symmetric
+direction. THREAD recovers the reciprocal entry and constructs a symmetric
 gene-level LD matrix.
 
 Pairs absent in both directions are treated as zero and their fraction is
@@ -172,7 +172,7 @@ A complete analysis typically processes all autosomes and restricts response
 calculation to genes present in the final expression matrix.
 
 ```{r full-analysis-template, eval=FALSE}
-checkpoint_dir <- file.path(tempdir(), "DPM_response_checkpoints")
+checkpoint_dir <- file.path(tempdir(), "THREAD_response_checkpoints")
 
 response <- compute_response(
   gene_snp_matches = gene_snp_matches,

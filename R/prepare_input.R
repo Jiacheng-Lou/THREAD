@@ -1,9 +1,9 @@
 # prepare_input.R
 # -----------------------------------------------------------------------------
-# Data assembly for the DPM model.
+# Data assembly for the THREAD model.
 #
 #   prepare_input()      Align X and GWAS response, create z_init and priors,
-#                        and return a dpm_data object consumed by run_dpm().
+#                        and return a thread_data object consumed by run_thread().
 #   init_clusters()      Build starting gene labels from gene2vec when supplied;
 #                        otherwise fall back to k-means on cbind(y, X).
 #   recommend_priors()   Empirical-Bayes recommendation for alpha0/beta0/r/delta
@@ -19,7 +19,7 @@
 #         ↓ preprocess_scrna()
 # log-normalized pseudobulk gene × label matrix X
 #         ↓ prepare_input()
-# dpm_data
+# thread_data
 
 
 #' Detect a gene identifier column
@@ -195,7 +195,7 @@ align_x_response <- function(X, response,
     ]
 
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Input",
         sprintf(
           "Using %d response row(s) with status == 'ok'; excluded %d non-ok row(s).",
@@ -278,7 +278,7 @@ align_x_response <- function(X, response,
   names(d2) <- common_genes
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Input",
       sprintf(
         "Aligned %d genes across X (%d total) and response (%d total).",
@@ -497,7 +497,7 @@ init_clusters <- function(X, response,
     genes_in_vec <- genes[genes %in% rownames(g2v)]
     if (length(genes_in_vec) >= K_eff) {
       if (verbose) {
-        DPM_log(
+        THREAD_log(
           "Input",
           sprintf(
             "Initialisation: gene2vec k-means for %d/%d genes; KNN voting for %d missing genes.",
@@ -559,7 +559,7 @@ init_clusters <- function(X, response,
   }
 
   if (verbose) {
-    DPM_log("Input", sprintf("Initialisation: k-means fallback on cbind(y, X), K = %d.", K_eff))
+    THREAD_log("Input", sprintf("Initialisation: k-means fallback on cbind(y, X), K = %d.", K_eff))
   }
 
   features <- cbind(y_train = as.numeric(y), X_aligned)
@@ -706,7 +706,7 @@ recommend_priors <- function(X, response,
   if (!is.null(z) && length(unique(z)) > 1L) {
     clusters <- sort(unique(z))
     if (verbose) {
-      DPM_log("Input", sprintf("Prior recommendation: cluster-wise weighted ridge over K = %d initial clusters.", length(clusters)))
+      THREAD_log("Input", sprintf("Prior recommendation: cluster-wise weighted ridge over K = %d initial clusters.", length(clusters)))
     }
 
     for (k in clusters) {
@@ -728,7 +728,7 @@ recommend_priors <- function(X, response,
     emp_beta_var <- mean(beta_variances)
     mode <- "cluster-wise"
   } else {
-    if (verbose) DPM_log("Input", "Prior recommendation: global weighted ridge fit.")
+    if (verbose) THREAD_log("Input", "Prior recommendation: global weighted ridge fit.")
     emp_beta_var <- ridge_beta_variance(X_aligned, y, weights, base_lambda)
     mode <- "global"
   }
@@ -752,7 +752,7 @@ recommend_priors <- function(X, response,
   priors <- validate_priors(priors)
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Input",
       sprintf(
         "Recommended priors: alpha0 = %.3g, beta0 = %.6e, r = %.3g, delta = %.3g, prior_sd = %.6e.",
@@ -765,13 +765,13 @@ recommend_priors <- function(X, response,
 }
 
 
-#' Prepare DPM model input
+#' Prepare THREAD model input
 #'
 #' @description
 #' Aligns a gene-by-subtype expression matrix with a gene-level GWAS response,
 #' creates or validates initial cluster labels, recommends prior hyperparameters
-#' when they are not supplied, and returns a \code{dpm_data} object consumed by
-#' \code{run_dpm()}.
+#' when they are not supplied, and returns a \code{thread_data} object consumed by
+#' \code{run_thread()}.
 #'
 #' The response is kept on the raw LD-corrected scale. No log transform or
 #' truncation is applied to y, because y, d0, d1 and d2 must remain on the same
@@ -797,7 +797,7 @@ recommend_priors <- function(X, response,
 #' @param verbose Logical.
 #' @param ... Reserved for future extensions.
 #'
-#' @return A list of class \code{dpm_data} with x_train, y_train, d0, d1, d2,
+#' @return A list of class \code{thread_data} with x_train, y_train, d0, d1, d2,
 #'   z_init, gene_names and priors.
 #'
 #' @export
@@ -860,7 +860,7 @@ prepare_input <- function(X, response,
   } else {
     z <- align_z_init(z_init, gene_names, gene_col = gene_col)
     if (verbose) {
-      DPM_log("Input", sprintf("Using user-supplied z_init with K = %d.", length(unique(z))))
+      THREAD_log("Input", sprintf("Using user-supplied z_init with K = %d.", length(unique(z))))
     }
   }
 
@@ -879,7 +879,7 @@ prepare_input <- function(X, response,
   } else {
     priors <- validate_priors(priors)
     if (verbose) {
-      DPM_log("Input", "Using user-supplied priors.")
+      THREAD_log("Input", "Using user-supplied priors.")
     }
   }
 
@@ -910,13 +910,13 @@ prepare_input <- function(X, response,
 
   names(out$z_init) <- gene_names
 
-  class(out) <- "dpm_data"
+  class(out) <- "thread_data"
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Input",
       sprintf(
-        "Prepared dpm_data: %d genes x %d subtypes, K_init = %d.",
+        "Prepared thread_data: %d genes x %d subtypes, K_init = %d.",
         nrow(out$x_train), ncol(out$x_train), length(unique(out$z_init))
       )
     )

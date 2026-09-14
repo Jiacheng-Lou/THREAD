@@ -1,8 +1,8 @@
-citHeader("To cite DPM in publications, please use:")
+citHeader("To cite THREAD in publications, please use:")
 
 bibentry(
   bibtype = "Manual",
-  title = "DPM: Dirichlet Process Mixture for Polygenic Risk Decomposition",
+  title = "THREAD: Trait Heterogeneity Regression through Expression Annotation and Dirichlet processes",
   author = c(
     person(
       given = "Jiacheng",
@@ -15,7 +15,7 @@ bibentry(
   ),
   year = "2026",
   note = paste("R package version", meta$Version),
-  url = "https://github.com/Jiacheng-Lou/DPM"
+  url = "https://github.com/Jiacheng-Lou/THREAD"
 )
 
 # # 未来论文发表后追加的示例：

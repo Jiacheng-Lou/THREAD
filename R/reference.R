@@ -1,6 +1,6 @@
 #' Read a gene2vec embedding file
 #'
-#' Read an external gene embedding file for gene2vec-based initialization in DPM.
+#' Read an external gene embedding file for gene2vec-based initialization in THREAD.
 #' The file should contain one gene identifier column followed by numeric
 #' embedding dimensions. A Word2Vec-style metadata header, such as "25442 200",
 #' is automatically detected and skipped.
@@ -40,7 +40,7 @@ read_gene2vec <- function(path,
   gene_col <- as.integer(gene_col)
 
   if (verbose) {
-    DPM_log("Input", "Reading gene2vec file: ", path)
+    THREAD_log("Input", "Reading gene2vec file: ", path)
   }
 
   first_line <- readLines(path, n = 1L, warn = FALSE)
@@ -57,7 +57,7 @@ read_gene2vec <- function(path,
     skip_rows <- if (is_word2vec_header) 1L else 0L
 
     if (verbose && is_word2vec_header) {
-      DPM_log("Input", "Detected Word2Vec metadata header. Skipping first row.")
+      THREAD_log("Input", "Detected Word2Vec metadata header. Skipping first row.")
     }
   } else {
     if (!is.numeric(skip) || length(skip) != 1L || is.na(skip) || skip < 0) {
@@ -100,7 +100,7 @@ read_gene2vec <- function(path,
   first_embedding_col <- suppressWarnings(as.numeric(dt[[embedding_cols[1L]]]))
   if (length(first_embedding_col) > 0L && is.na(first_embedding_col[1L])) {
     if (verbose) {
-      DPM_log("Input", "Detected a non-numeric first data row. Treating it as a header row and removing it.")
+      THREAD_log("Input", "Detected a non-numeric first data row. Treating it as a header row and removing it.")
     }
     dt <- dt[-1L, , drop = FALSE]
   }
@@ -124,9 +124,9 @@ read_gene2vec <- function(path,
   colnames(emb) <- paste0("dim", seq_len(ncol(emb)))
 
   if (verbose) {
-    DPM_log("Input", "Loaded gene2vec matrix: ", nrow(emb), " genes x ", ncol(emb), " dimensions.")
+    THREAD_log("Input", "Loaded gene2vec matrix: ", nrow(emb), " genes x ", ncol(emb), " dimensions.")
     if (dropped > 0L) {
-      DPM_log("Input", "Dropped ", dropped, " invalid or duplicated row(s).")
+      THREAD_log("Input", "Dropped ", dropped, " invalid or duplicated row(s).")
     }
   }
 

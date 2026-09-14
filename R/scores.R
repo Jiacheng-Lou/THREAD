@@ -38,14 +38,14 @@
 #'   \code{\link{test_significance}} as \code{$coefficients} (named by module
 #'   id, each a vector over cell subtypes).
 #' @param x_train The gene-by-subtype matrix used to fit the model
-#'   (\code{dpm_data$x_train}); row names are gene identifiers and column order
+#'   (\code{thread_data$x_train}); row names are gene identifiers and column order
 #'   must match the coefficient vectors.
 #' @param top_n Number of top genes to keep per module. Default \code{200}.
 #' @param out_dir Optional directory; when supplied, one CSV of the top genes is
 #'   written per module. When \code{NULL} (default) no file is written and the
 #'   data are only returned.
 #' @param prefix File-name prefix used when \code{out_dir} is supplied. Default
-#'   \code{"DPM"}.
+#'   \code{"THREAD"}.
 #' @param verbose Logical; print a short summary. Default \code{TRUE}.
 #'
 #' @return A list with
@@ -59,15 +59,15 @@
 #'
 #' @examples
 #' \dontrun{
-#' sig <- test_significance(fit, partition, dpm_data)
-#' gs <- gene_score(partition, sig$coefficients, dpm_data$x_train, top_n = 200)
+#' sig <- test_significance(fit, partition, thread_data)
+#' gs <- gene_score(partition, sig$coefficients, thread_data$x_train, top_n = 200)
 #' head(gs$top_genes)
 #' }
 #'
 #' @importFrom utils write.csv
 #' @export
 gene_score <- function(partition, coefficients, x_train,
-                       top_n = 200, out_dir = NULL, prefix = "DPM",
+                       top_n = 200, out_dir = NULL, prefix = "THREAD",
                        verbose = TRUE) {
   assignments <- partition$assignments
   if (is.null(assignments)) stop("'partition' has no $assignments; use get_partition().")
@@ -143,7 +143,7 @@ gene_score <- function(partition, coefficients, x_train,
       utils::write.csv(sub, file = fn, row.names = FALSE)
     }
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Scores",
         sprintf(
           "Wrote top-%d gene tables for %d module(s) to %s.",
@@ -157,7 +157,7 @@ gene_score <- function(partition, coefficients, x_train,
   if (verbose) {
     n_na <- sum(is.na(scores))
     if (n_na > 0L) {
-      DPM_log(
+      THREAD_log(
         "Scores",
         sprintf("%d gene(s) belong to a module without coefficients (score = NA).", n_na)
       )
@@ -195,7 +195,7 @@ gene_score <- function(partition, coefficients, x_train,
 #'
 #' @examples
 #' \dontrun{
-#' sig <- test_significance(fit, partition, dpm_data)
+#' sig <- test_significance(fit, partition, thread_data)
 #' cts <- cell_type_score(sig)
 #' head(cts)
 #' }

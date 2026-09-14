@@ -29,7 +29,7 @@ get_mode <- function(v) {
 }
 
 
-#' Point estimate of the gene partition from a fitted DPM model
+#' Point estimate of the gene partition from a fitted THREAD model
 #'
 #' @description
 #' Turns posterior label draws into a single point-estimate partition. Because
@@ -39,7 +39,7 @@ get_mode <- function(v) {
 #' \code{min_cluster_size} genes. The final K is selected by PAM silhouette
 #' within a local window around this trajectory mode.
 #'
-#' @param fit A \code{dpm_fit} object from \code{\link{run_dpm}}. For backward
+#' @param fit A \code{thread_fit} object from \code{\link{run_thread}}. For backward
 #'   compatibility, objects with \code{$results} instead of \code{$samples} are
 #'   also accepted.
 #' @param min_cluster_size Clusters with at most this many genes are excluded
@@ -93,12 +93,12 @@ get_partition <- function(fit,
   if (is.null(samples) && !is.null(fit$results)) {
     samples <- fit$results
     if (verbose) {
-      DPM_log("Partition", "Using legacy fit$results as posterior samples. Consider converting to fit$samples.")
+      THREAD_log("Partition", "Using legacy fit$results as posterior samples. Consider converting to fit$samples.")
     }
   }
 
   if (is.null(samples)) {
-    stop("'fit' has no $samples; pass a dpm_fit object produced by run_dpm().")
+    stop("'fit' has no $samples; pass a thread_fit object produced by run_thread().")
   }
 
   n_samples <- length(samples)
@@ -152,7 +152,7 @@ get_partition <- function(fit,
   mode_freq_last <- sum(last_samples == mode_major_k) / last_n * 100
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Partition",
       sprintf(
         "Trajectory mode of major clusters: %d (overall %.1f%%, last %d draws %.1f%%).",
@@ -185,7 +185,7 @@ get_partition <- function(fit,
 
   if (mode_major_k <= 1L) {
     if (verbose) {
-      DPM_log("Partition", "Trajectory collapsed onto a single major cluster: returning K = 1.")
+      THREAD_log("Partition", "Trajectory collapsed onto a single major cluster: returning K = 1.")
     }
     return(collapse_to_one())
   }
@@ -210,7 +210,7 @@ get_partition <- function(fit,
   k_grid <- seq.int(lower_k, upper_k)
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Partition",
       sprintf(
         "Silhouette K search window: %s (mode_k = %d, mode_window = %d).",
@@ -252,7 +252,7 @@ get_partition <- function(fit,
 
   if (!is.null(min_silhouette) && max_sil < min_silhouette) {
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Partition",
         sprintf(
           "Max silhouette %.3f < min_silhouette %.3f; collapsing to K = 1.",
@@ -264,7 +264,7 @@ get_partition <- function(fit,
   }
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Partition",
       sprintf(
         "Selected K = %d by maximum average silhouette width within the mode-local window (%.3f).",

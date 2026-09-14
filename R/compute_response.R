@@ -384,7 +384,7 @@ merge_gwas_effects_for_response <- function(matches,
     }
 
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Response",
         "Merged GWAS Beta/SE into matches: ",
         sum(!is.na(matches$Beta) & !is.na(matches$SE)),
@@ -866,7 +866,7 @@ compute_gene_hetero_metrics <- function(g_data,
   )
 }
 
-#' Compute LD-based heteroscedastic gene-level DPM response
+#' Compute LD-based heteroscedastic gene-level THREAD response
 #'
 #' @param gene_snp_matches A data.frame/data.table or file path to gene-SNP
 #'   matches.
@@ -1055,7 +1055,7 @@ compute_response <- function(gene_snp_matches = NULL,
   }
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Response",
       sprintf(
         "compute_response settings: match_mode = %s, LD symmetrization = always enabled, PSD repair = trace-preserving eigenvalue clipping, n_cores = %d, set_dt_threads = %s.",
@@ -1086,7 +1086,7 @@ compute_response <- function(gene_snp_matches = NULL,
     matches_dt <- matches_dt[gene_name %in% genes]
 
     if (verbose) {
-      DPM_log(
+      THREAD_log(
         "Response",
         sprintf(
           "Restricting gene-SNP matches to requested genes: %d of %d gene(s).",
@@ -1126,15 +1126,15 @@ compute_response <- function(gene_snp_matches = NULL,
   all_results <- list()
 
   if (verbose) {
-    DPM_log("Response", sprintf(
-      "Computing DPM heteroscedastic response over %d chromosome(s).",
+    THREAD_log("Response", sprintf(
+      "Computing THREAD heteroscedastic response over %d chromosome(s).",
       length(chromosomes)
     ))
   }
 
   for (chr in chromosomes) {
     if (verbose) {
-      DPM_log("Response", sprintf("Processing chromosome %s ...", chr))
+      THREAD_log("Response", sprintf("Processing chromosome %s ...", chr))
     }
 
     chr_file <- NULL
@@ -1147,7 +1147,7 @@ compute_response <- function(gene_snp_matches = NULL,
 
       if (resume && file.exists(chr_file)) {
         if (verbose) {
-          DPM_log("Response", "Using existing chromosome checkpoint: ", chr_file)
+          THREAD_log("Response", "Using existing chromosome checkpoint: ", chr_file)
         }
 
         all_results[[chr]] <- data.table::as.data.table(
@@ -1192,7 +1192,7 @@ compute_response <- function(gene_snp_matches = NULL,
 
     if (nrow(chr_matches) == 0L) {
       if (verbose) {
-        DPM_log("Response", sprintf("No matches found for chromosome %s.", chr))
+        THREAD_log("Response", sprintf("No matches found for chromosome %s.", chr))
       }
 
       rm(ld_chr)
@@ -1211,7 +1211,7 @@ compute_response <- function(gene_snp_matches = NULL,
       genes_list <- genes_list[seq_len(max_genes_per_chr)]
 
       if (verbose) {
-        DPM_log(
+        THREAD_log(
           "Response",
           "Restricted to ",
           max_genes_per_chr,
@@ -1259,7 +1259,7 @@ compute_response <- function(gene_snp_matches = NULL,
     if (nrow(chr_res) > 0L &&
       "status" %in% names(chr_res)) {
       if (verbose) {
-        DPM_log("Response", sprintf("Status summary for chromosome %s:", chr))
+        THREAD_log("Response", sprintf("Status summary for chromosome %s:", chr))
         print(table(chr_res$status))
       }
     }
@@ -1270,12 +1270,12 @@ compute_response <- function(gene_snp_matches = NULL,
     ok_rows <- chr_res[status == "ok"]
 
     if (nrow(ok_rows) > 0L) {
-      DPM_log(
+      THREAD_log(
         "Response",
         message(
           sprintf(
             paste0(
-              "[DPM:Response] LD diagnostics for chromosome %s: ",
+              "[THREAD:Response] LD diagnostics for chromosome %s: ",
               "median missing-both fraction = %.4f; ",
               "median negative-eigen mass ratio = %.4f."
             ),
@@ -1301,7 +1301,7 @@ compute_response <- function(gene_snp_matches = NULL,
         nrow(chr_res)
       }
 
-      DPM_log(
+      THREAD_log(
         "Response",
         sprintf(
           "Chromosome %s complete: %d successful gene(s), %d returned record(s).",
@@ -1314,7 +1314,7 @@ compute_response <- function(gene_snp_matches = NULL,
       saveRDS(chr_res, chr_file)
 
       if (verbose) {
-        DPM_log("Response", "Saved chromosome response to: ", chr_file)
+        THREAD_log("Response", "Saved chromosome response to: ", chr_file)
       }
     }
 
@@ -1362,7 +1362,7 @@ compute_response <- function(gene_snp_matches = NULL,
   )
 
   if (verbose) {
-    DPM_log(
+    THREAD_log(
       "Response",
       sprintf(
         "Computed response for %d gene(s). Valid finite final_y: %d.",
@@ -1393,7 +1393,7 @@ compute_response <- function(gene_snp_matches = NULL,
     saveRDS(result, file = output_file)
 
     if (verbose) {
-      DPM_log("Response", "Saved computed response to: ", output_file)
+      THREAD_log("Response", "Saved computed response to: ", output_file)
     }
   }
 

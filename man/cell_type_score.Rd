@@ -33,7 +33,7 @@ not yet finalised; it may be revised. Only this function need change.
 }
 \examples{
 \dontrun{
-sig <- test_significance(fit, partition, dpm_data)
+sig <- test_significance(fit, partition, thread_data)
 cts <- cell_type_score(sig)
 head(cts)
 }

@@ -2,7 +2,7 @@
 % Please edit documentation in R/partition.R
 \name{get_partition}
 \alias{get_partition}
-\title{Point estimate of the gene partition from a fitted DPM model}
+\title{Point estimate of the gene partition from a fitted THREAD model}
 \usage{
 get_partition(
   fit,
@@ -14,7 +14,7 @@ get_partition(
 )
 }
 \arguments{
-\item{fit}{A \code{dpm_fit} object from \code{\link{run_dpm}}. For backward
+\item{fit}{A \code{thread_fit} object from \code{\link{run_thread}}. For backward
 compatibility, objects with \code{$results} instead of \code{$samples} are
 also accepted.}
 

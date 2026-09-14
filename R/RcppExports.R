@@ -12,10 +12,10 @@
 #' @return A symmetric numeric matrix of dissimilarities (genes by genes).
 #' @keywords internal
 calcDissimilarityMatrixCpp <- function(zmat) {
-    .Call(`_DPM_calcDissimilarityMatrixCpp`, zmat)
+    .Call(`_THREAD_calcDissimilarityMatrixCpp`, zmat)
 }
 
 update_clusters_cpp_hetero <- function(x_train, y_train, d0, d1, d2, z, gamma, alpha, m, prior_sd) {
-    .Call(`_DPM_update_clusters_cpp_hetero`, x_train, y_train, d0, d1, d2, z, gamma, alpha, m, prior_sd)
+    .Call(`_THREAD_update_clusters_cpp_hetero`, x_train, y_train, d0, d1, d2, z, gamma, alpha, m, prior_sd)
 }
 

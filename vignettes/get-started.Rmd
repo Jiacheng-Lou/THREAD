@@ -1,8 +1,8 @@
 ---
-title: "Getting Started with DPM"
+title: "Getting Started with THREAD"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Getting Started with DPM}
+  %\VignetteIndexEntry{Getting Started with THREAD}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 
 ## Overview
 
-DPM integrates an LD-corrected gene-level GWAS response with a
+THREAD integrates an LD-corrected gene-level GWAS response with a
 gene-by-cellular-label expression matrix. It uses a heteroscedastic
 Dirichlet process mixture to infer latent gene modules and module-specific
 cellular coefficients.
@@ -35,12 +35,12 @@ interpretation.
 ## Load the installed example data
 
 ```{r load-example}
-library(DPM)
+library(THREAD)
 
 example_dir <- system.file(
   "extdata",
   "example",
-  package = "DPM",
+  package = "THREAD",
   mustWork = TRUE
 )
 
@@ -69,7 +69,7 @@ cluster labels, and recommends prior hyperparameters when priors are not
 supplied.
 
 ```{r prepare-input}
-dpm_data <- prepare_input(
+thread_data <- prepare_input(
   X = example_X,
   response = example_response,
   K_init = 3L,
@@ -78,23 +78,23 @@ dpm_data <- prepare_input(
   verbose = TRUE
 )
 
-dim(dpm_data$x_train)
-table(dpm_data$z_init)
-dpm_data$priors
+dim(thread_data$x_train)
+table(thread_data$z_init)
+thread_data$priors
 ```
 
-Gene2vec initialization is optional. When no embedding is supplied, DPM uses
+Gene2vec initialization is optional. When no embedding is supplied, THREAD uses
 a k-means fallback based on the aligned response and expression matrix.
 
-## Fit the DPM model
+## Fit the THREAD model
 
 The settings below are intentionally short so that the vignette builds
 quickly. A production analysis should use substantially longer chains and
 should evaluate stability across seeds.
 
 ```{r fit-model}
-fit <- run_dpm(
-  dpm_data = dpm_data,
+fit <- run_thread(
+  thread_data = thread_data,
   alpha = 0.1,
   m = 2L,
   n_iter = 60L,
@@ -111,7 +111,7 @@ summary(fit$diagnostics$cluster_counts)
 
 ## Obtain a point-estimate partition
 
-DPM summarizes posterior label draws through a posterior similarity matrix.
+THREAD summarizes posterior label draws through a posterior similarity matrix.
 The point-estimate partition is selected by PAM silhouette within a local
 window around the posterior-supported number of major modules.
 
@@ -140,7 +140,7 @@ table(partition$assignments)
 significance <- test_significance(
   fit = fit,
   partition = partition,
-  dpm_data = dpm_data,
+  thread_data = thread_data,
   fdr_thr = 0.05,
   lfsr_thr = 0.05,
   verbose = TRUE
@@ -153,7 +153,7 @@ subset(significance$table, dual_significant)
 
 The example contains only 24 genes but 31 cellular predictors. Consequently,
 some or all example modules can be underdetermined for frequentist inference.
-For such modules, DPM retains descriptive coefficients but sets the
+For such modules, THREAD retains descriptive coefficients but sets the
 frequentist standard error, P value, and FDR to `NA`. They cannot be declared
 dual-significant. This behavior is intentional and allows the example to test
 the package interface without presenting the miniature dataset as a valid
@@ -165,7 +165,7 @@ biological analysis.
 gene_results <- gene_score(
   partition = partition,
   coefficients = significance$coefficients,
-  x_train = dpm_data$x_train,
+  x_train = thread_data$x_train,
   top_n = 10L,
   verbose = TRUE
 )

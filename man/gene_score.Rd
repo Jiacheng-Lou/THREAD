@@ -10,7 +10,7 @@ gene_score(
   x_train,
   top_n = 200,
   out_dir = NULL,
-  prefix = "DPM",
+  prefix = "THREAD",
   verbose = TRUE
 )
 }
@@ -23,7 +23,7 @@ gene_score(
 id, each a vector over cell subtypes).}
 
 \item{x_train}{The gene-by-subtype matrix used to fit the model
-(\code{dpm_data$x_train}); row names are gene identifiers and column order
+(\code{thread_data$x_train}); row names are gene identifiers and column order
 must match the coefficient vectors.}
 
 \item{top_n}{Number of top genes to keep per module. Default \code{200}.}
@@ -33,7 +33,7 @@ written per module. When \code{NULL} (default) no file is written and the
 data are only returned.}
 
 \item{prefix}{File-name prefix used when \code{out_dir} is supplied. Default
-\code{"DPM"}.}
+\code{"THREAD"}.}
 
 \item{verbose}{Logical; print a short summary. Default \code{TRUE}.}
 }
@@ -65,8 +65,8 @@ documentation), as it requires an external gene-type annotation.
 }
 \examples{
 \dontrun{
-sig <- test_significance(fit, partition, dpm_data)
-gs <- gene_score(partition, sig$coefficients, dpm_data$x_train, top_n = 200)
+sig <- test_significance(fit, partition, thread_data)
+gs <- gene_score(partition, sig$coefficients, thread_data$x_train, top_n = 200)
 head(gs$top_genes)
 }
 

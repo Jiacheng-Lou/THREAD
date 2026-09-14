@@ -1,11 +1,11 @@
-#' DPM: Dirichlet Process Mixture for Polygenic Risk Decomposition
+#' THREAD: Trait Heterogeneity Regression through Expression Annotation and Dirichlet processes
 #'
-#' DPM integrates gene-level GWAS response statistics with gene-by-label
+#' THREAD integrates gene-level GWAS response statistics with gene-by-label
 #' single-cell expression profiles to infer latent gene modules and
 #' module-specific cellular coefficients.
 #'
 #' @keywords internal
-#' @useDynLib DPM, .registration = TRUE
+#' @useDynLib THREAD, .registration = TRUE
 #' @importFrom Rcpp sourceCpp
 "_PACKAGE"
 
@@ -24,6 +24,6 @@ if (getRversion() >= "2.15.1") {
 }
 
 # Internal helper for consistent package logging.
-DPM_log <- function(module, ..., sep = " ") {
-  message(sprintf("[DPM:%s] %s", module, paste(..., sep = sep)))
+THREAD_log <- function(module, ..., sep = " ") {
+  message(sprintf("[THREAD:%s] %s", module, paste(..., sep = sep)))
 }

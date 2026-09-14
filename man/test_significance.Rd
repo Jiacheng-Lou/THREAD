@@ -7,7 +7,7 @@
 test_significance(
   fit,
   partition,
-  dpm_data,
+  thread_data,
   method = "FGLS",
   fdr_thr = 0.05,
   lfsr_thr = 0.05,
@@ -16,13 +16,13 @@ test_significance(
 )
 }
 \arguments{
-\item{fit}{A \code{dpm_fit} from \code{\link{run_dpm}}; each draw carries
+\item{fit}{A \code{thread_fit} from \code{\link{run_thread}}; each draw carries
 \code{$z} and \code{$gamma}.}
 
 \item{partition}{A partition from \code{\link{get_partition}} (uses
 \code{$assignments}).}
 
-\item{dpm_data}{The \code{dpm_data} used to fit the model; supplies
+\item{thread_data}{The \code{thread_data} used to fit the model; supplies
 \code{x_train}, \code{y_train} and \code{d0}, \code{d1}, \code{d2} on the
 same scale the sampler used.}
 
@@ -67,7 +67,7 @@ since the Bayesian posterior mean is shrunk by the Lasso prior.
 }
 \examples{
 \dontrun{
-sig <- test_significance(fit, partition, dpm_data)
+sig <- test_significance(fit, partition, thread_data)
 subset(sig$table, dual_significant)
 }
 

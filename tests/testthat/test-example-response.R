@@ -2,7 +2,7 @@ test_that("example LD response is reproducible", {
   example_dir <- system.file(
     "extdata",
     "example",
-    package = "DPM",
+    package = "THREAD",
     mustWork = TRUE
   )
 

@@ -207,7 +207,7 @@ fit_clusters_fgls <- function(x_train,
       message(
         sprintf(
           paste0(
-            "[DPM:Inference] Module %s has %s; ",
+            "[THREAD:Inference] Module %s has %s; ",
             "frequentist inference is underdetermined. ",
             "Coefficients are retained, but SE, P value and FDR are set to NA."
           ),
@@ -338,7 +338,7 @@ fit_clusters_fgls <- function(x_train,
     message(
       sprintf(
         paste0(
-          "[DPM:Inference] Frequentist inference was estimable for ",
+          "[THREAD:Inference] Frequentist inference was estimable for ",
           "%d of %d module(s)."
         ),
         n_estimable,
@@ -364,7 +364,7 @@ fit_clusters_fgls <- function(x_train,
 #' genes selects which coefficient row to take.
 #'
 #' @param assignments Integer module label per gene (point estimate).
-#' @param fit A \code{dpm_fit}; each draw in \code{$samples} carries \code{$z}
+#' @param fit A \code{thread_fit}; each draw in \code{$samples} carries \code{$z}
 #'   and \code{$gamma}.
 #' @return List with \code{gamma_aligned} (a draws-by-module-by-subtype array)
 #'   and \code{ref_clusters} (the module labels in row order).
@@ -468,11 +468,11 @@ compute_lfsr <- function(gamma_aligned, ref_clusters, subtype_names,
 #' \code{lfsr < lfsr_thr}. The reported effect size is the FGLS coefficient,
 #' since the Bayesian posterior mean is shrunk by the Lasso prior.
 #'
-#' @param fit A \code{dpm_fit} from \code{\link{run_dpm}}; each draw carries
+#' @param fit A \code{thread_fit} from \code{\link{run_thread}}; each draw carries
 #'   \code{$z} and \code{$gamma}.
 #' @param partition A partition from \code{\link{get_partition}} (uses
 #'   \code{$assignments}).
-#' @param dpm_data The \code{dpm_data} used to fit the model; supplies
+#' @param thread_data The \code{thread_data} used to fit the model; supplies
 #'   \code{x_train}, \code{y_train} and \code{d0}, \code{d1}, \code{d2} on the
 #'   same scale the sampler used.
 #' @param method Frequentist engine, "FGLS" (default) or "OLS".
@@ -499,14 +499,14 @@ compute_lfsr <- function(gamma_aligned, ref_clusters, subtype_names,
 #'
 #' @examples
 #' \dontrun{
-#' sig <- test_significance(fit, partition, dpm_data)
+#' sig <- test_significance(fit, partition, thread_data)
 #' subset(sig$table, dual_significant)
 #' }
 #'
 #' @export
 test_significance <- function(fit,
                               partition,
-                              dpm_data,
+                              thread_data,
                               method = "FGLS",
                               fdr_thr = 0.05,
                               lfsr_thr = 0.05,
@@ -521,7 +521,7 @@ test_significance <- function(fit,
   if (is.null(fit$samples[[1L]]$gamma)) {
     stop(
       "'fit$samples' draws do not contain $gamma; ",
-      "was the model fit with run_dpm()?"
+      "was the model fit with run_thread()?"
     )
   }
 
@@ -543,12 +543,12 @@ test_significance <- function(fit,
 
   missing_fields <- setdiff(
     required_fields,
-    names(dpm_data)
+    names(thread_data)
   )
 
   if (length(missing_fields) > 0L) {
     stop(
-      "'dpm_data' is missing field(s): ",
+      "'thread_data' is missing field(s): ",
       paste(missing_fields, collapse = ", ")
     )
   }
@@ -577,11 +577,11 @@ test_significance <- function(fit,
     stop("'cred_mass' must lie strictly between 0 and 1.")
   }
 
-  x_train <- as.matrix(dpm_data$x_train)
-  Y <- as.numeric(dpm_data$y_train)
-  d0 <- as.numeric(dpm_data$d0)
-  d1 <- as.numeric(dpm_data$d1)
-  d2 <- as.numeric(dpm_data$d2)
+  x_train <- as.matrix(thread_data$x_train)
+  Y <- as.numeric(thread_data$y_train)
+  d0 <- as.numeric(thread_data$d0)
+  d1 <- as.numeric(thread_data$d1)
+  d2 <- as.numeric(thread_data$d2)
 
   N <- nrow(x_train)
 
@@ -621,7 +621,7 @@ test_significance <- function(fit,
   if (verbose) {
     message(
       sprintf(
-        "[DPM:Inference] Frequentist inference (%s) over %d module(s).",
+        "[THREAD:Inference] Frequentist inference (%s) over %d module(s).",
         toupper(method),
         length(unique(assignments))
       )
@@ -644,7 +644,7 @@ test_significance <- function(fit,
   if (verbose) {
     message(
       paste0(
-        "[DPM:Inference] Bayesian inference (lFSR): ",
+        "[THREAD:Inference] Bayesian inference (lFSR): ",
         "aligning posterior draws to the partition."
       )
     )
@@ -719,7 +719,7 @@ test_significance <- function(fit,
     message(
       sprintf(
         paste0(
-          "[DPM:Inference] Dual-significant ",
+          "[THREAD:Inference] Dual-significant ",
           "(FDR < %.3g and lFSR < %.3g): ",
           "%d module-subtype association(s)."
         ),
