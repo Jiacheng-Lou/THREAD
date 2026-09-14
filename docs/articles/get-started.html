@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Getting Started with DPM • DPM</title>
+<title>Getting Started with THREAD • THREAD</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started with DPM">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="Getting Started with THREAD">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -18,9 +18,9 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="../index.html">DPM</a>
+    <a class="navbar-brand me-2" href="../index.html">THREAD</a>
 
-    <small class="nav-text text-danger me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Unreleased version">0.0.0.9000</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -36,9 +36,9 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Workflows</h6></li>
-    <li><a class="dropdown-item" href="../articles/get-started.html">Getting Started with DPM</a></li>
+    <li><a class="dropdown-item" href="../articles/get-started.html">Getting Started with THREAD</a></li>
     <li><a class="dropdown-item" href="../articles/compute-gene-response.html">Computing the LD-Corrected Gene-Level Response</a></li>
-    <li><a class="dropdown-item" href="../articles/input-formats-and-entry-points.html">DPM Input Formats and Workflow Entry Points</a></li>
+    <li><a class="dropdown-item" href="../articles/input-formats-and-entry-points.html">THREAD Input Formats and Workflow Entry Points</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -47,7 +47,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Jiacheng-Lou/DPM/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Jiacheng-Lou/THREAD/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -61,10 +61,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>Getting Started with DPM</h1>
+      <h1>Getting Started with THREAD</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Jiacheng-Lou/DPM/blob/HEAD/vignettes/get-started.Rmd" class="external-link"><code>vignettes/get-started.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Jiacheng-Lou/THREAD/blob/HEAD/vignettes/get-started.Rmd" class="external-link"><code>vignettes/get-started.Rmd</code></a></small>
       <div class="d-none name"><code>get-started.Rmd</code></div>
     </div>
 
@@ -73,7 +73,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>DPM integrates an LD-corrected gene-level GWAS response with a
+<p>THREAD integrates an LD-corrected gene-level GWAS response with a
 gene-by-cellular-label expression matrix. It uses a heteroscedastic
 Dirichlet process mixture to infer latent gene modules and
 module-specific cellular coefficients.</p>
@@ -92,12 +92,12 @@ biological interpretation.</p>
 <h2 id="load-the-installed-example-data">Load the installed example data<a class="anchor" aria-label="anchor" href="#load-the-installed-example-data"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jiacheng-lou.github.io/DPM/">DPM</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jiacheng-lou.github.io/THREAD/">THREAD</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">example_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata"</span>,</span>
 <span>  <span class="st">"example"</span>,</span>
-<span>  package <span class="op">=</span> <span class="st">"DPM"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"THREAD"</span>,</span>
 <span>  mustWork <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -164,7 +164,7 @@ matrix and the response, retains response records with
 <code>status == "ok"</code>, generates initial cluster labels, and
 recommends prior hyperparameters when priors are not supplied.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dpm_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_input.html">prepare_input</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">thread_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_input.html">prepare_input</a></span><span class="op">(</span></span>
 <span>  X <span class="op">=</span> <span class="va">example_X</span>,</span>
 <span>  response <span class="op">=</span> <span class="va">example_response</span>,</span>
 <span>  K_init <span class="op">=</span> <span class="fl">3L</span>,</span>
@@ -172,20 +172,20 @@ recommends prior hyperparameters when priors are not supplied.</p>
 <span>  seed <span class="op">=</span> <span class="fl">2028L</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; [DPM:Input] Using 200 response row(s) with status == 'ok'; excluded 0 non-ok row(s).</span></span>
-<span><span class="co">#&gt; [DPM:Input] Aligned 200 genes across X (200 total) and response (200 total).</span></span>
-<span><span class="co">#&gt; [DPM:Input] Initialisation: k-means fallback on cbind(y, X), K = 3.</span></span>
-<span><span class="co">#&gt; [DPM:Input] Prior recommendation: cluster-wise weighted ridge over K = 3 initial clusters.</span></span>
-<span><span class="co">#&gt; [DPM:Input] Recommended priors: alpha0 = 2, beta0 = 1.277495e-07, r = 1, delta = 1, prior_sd = 2.918327e-04.</span></span>
-<span><span class="co">#&gt; [DPM:Input] Prepared dpm_data: 200 genes x 31 subtypes, K_init = 3.</span></span>
+<span><span class="co">#&gt; [THREAD:Input] Using 200 response row(s) with status == 'ok'; excluded 0 non-ok row(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Input] Aligned 200 genes across X (200 total) and response (200 total).</span></span>
+<span><span class="co">#&gt; [THREAD:Input] Initialisation: k-means fallback on cbind(y, X), K = 3.</span></span>
+<span><span class="co">#&gt; [THREAD:Input] Prior recommendation: cluster-wise weighted ridge over K = 3 initial clusters.</span></span>
+<span><span class="co">#&gt; [THREAD:Input] Recommended priors: alpha0 = 2, beta0 = 1.277495e-07, r = 1, delta = 1, prior_sd = 2.918327e-04.</span></span>
+<span><span class="co">#&gt; [THREAD:Input] Prepared thread_data: 200 genes x 31 subtypes, K_init = 3.</span></span>
 <span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">dpm_data</span><span class="op">$</span><span class="va">x_train</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">thread_data</span><span class="op">$</span><span class="va">x_train</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 200  31</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">dpm_data</span><span class="op">$</span><span class="va">z_init</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">thread_data</span><span class="op">$</span><span class="va">z_init</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;   1   2   3 </span></span>
 <span><span class="co">#&gt;  69  22 109</span></span>
-<span><span class="va">dpm_data</span><span class="op">$</span><span class="va">priors</span></span>
+<span><span class="va">thread_data</span><span class="op">$</span><span class="va">priors</span></span>
 <span><span class="co">#&gt; $alpha0</span></span>
 <span><span class="co">#&gt; [1] 2</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -210,18 +210,18 @@ recommends prior hyperparameters when priors are not supplied.</p>
 <span><span class="co">#&gt; $prior_sd</span></span>
 <span><span class="co">#&gt; [1] 0.0002918327</span></span></code></pre></div>
 <p>Gene2vec initialization is optional. When no embedding is supplied,
-DPM uses a k-means fallback based on the aligned response and expression
-matrix.</p>
+THREAD uses a k-means fallback based on the aligned response and
+expression matrix.</p>
 </div>
 <div class="section level2">
-<h2 id="fit-the-dpm-model">Fit the DPM model<a class="anchor" aria-label="anchor" href="#fit-the-dpm-model"></a>
+<h2 id="fit-the-thread-model">Fit the THREAD model<a class="anchor" aria-label="anchor" href="#fit-the-thread-model"></a>
 </h2>
 <p>The settings below are intentionally short so that the vignette
 builds quickly. A production analysis should use substantially longer
 chains and should evaluate stability across seeds.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_dpm.html">run_dpm</a></span><span class="op">(</span></span>
-<span>  dpm_data <span class="op">=</span> <span class="va">dpm_data</span>,</span>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_thread.html">run_thread</a></span><span class="op">(</span></span>
+<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  m <span class="op">=</span> <span class="fl">2L</span>,</span>
 <span>  n_iter <span class="op">=</span> <span class="fl">60L</span>,</span>
@@ -231,14 +231,14 @@ chains and should evaluate stability across seeds.</p>
 <span>  save_scales <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; [DPM:MCMC] Using K_init = 3 from supplied z_init (ignoring K_init = 10).</span></span>
-<span><span class="co">#&gt; [DPM:MCMC] 200 genes x 31 subtypes | alpha = 0.1, m = 2, K_init = 3</span></span>
-<span><span class="co">#&gt; [DPM:MCMC] iterations = 60, burnin = 30, thin = 1, expected retained draws = 30</span></span>
-<span><span class="co">#&gt; [DPM:MCMC] auxiliary-cluster proposal prior_sd = 0.000291833</span></span>
-<span><span class="co">#&gt; [DPM:MCMC] save_scales =  FALSE</span></span>
+<span><span class="co">#&gt; [THREAD:MCMC] Using K_init = 3 from supplied z_init (ignoring K_init = 10).</span></span>
+<span><span class="co">#&gt; [THREAD:MCMC] 200 genes x 31 subtypes | alpha = 0.1, m = 2, K_init = 3</span></span>
+<span><span class="co">#&gt; [THREAD:MCMC] iterations = 60, burnin = 30, thin = 1, expected retained draws = 30</span></span>
+<span><span class="co">#&gt; [THREAD:MCMC] auxiliary-cluster proposal prior_sd = 0.000291833</span></span>
+<span><span class="co">#&gt; [THREAD:MCMC] save_scales =  FALSE</span></span>
 <span><span class="co">#&gt;   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |====                                                                  |   5%  |                                                                              |=====                                                                 |   7%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  15%  |                                                                              |============                                                          |  17%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  23%  |                                                                              |==================                                                    |  25%  |                                                                              |===================                                                   |  27%  |                                                                              |====================                                                  |  28%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  35%  |                                                                              |==========================                                            |  37%  |                                                                              |===========================                                           |  38%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |================================                                      |  45%  |                                                                              |=================================                                     |  47%  |                                                                              |==================================                                    |  48%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |======================================                                |  55%  |                                                                              |========================================                              |  57%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  63%  |                                                                              |==============================================                        |  65%  |                                                                              |===============================================                       |  67%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================                |  77%  |                                                                              |=======================================================               |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |============================================================          |  85%  |                                                                              |=============================================================         |  87%  |                                                                              |==============================================================        |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  95%  |                                                                              |====================================================================  |  97%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%</span></span>
-<span><span class="co">#&gt; [DPM:MCMC] MCMC complete in 1.41 secs. Retained 30 draws.</span></span>
-<span><span class="co">#&gt; [DPM:MCMC] Occupied modules across retained draws: min = 3, median = 4.0, max = 4.</span></span>
+<span><span class="co">#&gt; [THREAD:MCMC] MCMC complete in 1.85 secs. Retained 30 draws.</span></span>
+<span><span class="co">#&gt; [THREAD:MCMC] Occupied modules across retained draws: min = 3, median = 4.0, max = 4.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/length.html" class="external-link">length</a></span><span class="op">(</span><span class="va">fit</span><span class="op">$</span><span class="va">samples</span><span class="op">)</span></span>
 <span><span class="co">#&gt; [1] 30</span></span>
@@ -249,10 +249,10 @@ chains and should evaluate stability across seeds.</p>
 <div class="section level2">
 <h2 id="obtain-a-point-estimate-partition">Obtain a point-estimate partition<a class="anchor" aria-label="anchor" href="#obtain-a-point-estimate-partition"></a>
 </h2>
-<p>DPM summarizes posterior label draws through a posterior similarity
-matrix. The point-estimate partition is selected by PAM silhouette
-within a local window around the posterior-supported number of major
-modules.</p>
+<p>THREAD summarizes posterior label draws through a posterior
+similarity matrix. The point-estimate partition is selected by PAM
+silhouette within a local window around the posterior-supported number
+of major modules.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">partition</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/get_partition.html">get_partition</a></span><span class="op">(</span></span>
 <span>  fit <span class="op">=</span> <span class="va">fit</span>,</span>
@@ -261,9 +261,9 @@ modules.</p>
 <span>  return_dissimilarity <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; [DPM:Partition] Trajectory mode of major clusters: 4 (overall 50.0%, last 30 draws 50.0%).</span></span>
-<span><span class="co">#&gt; [DPM:Partition] Silhouette K search window: 3, 4, 5 (mode_k = 4, mode_window = 1).</span></span>
-<span><span class="co">#&gt; [DPM:Partition] Selected K = 3 by maximum average silhouette width within the mode-local window (0.538).</span></span>
+<span><span class="co">#&gt; [THREAD:Partition] Trajectory mode of major clusters: 4 (overall 50.0%, last 30 draws 50.0%).</span></span>
+<span><span class="co">#&gt; [THREAD:Partition] Silhouette K search window: 3, 4, 5 (mode_k = 4, mode_window = 1).</span></span>
+<span><span class="co">#&gt; [THREAD:Partition] Selected K = 3 by maximum average silhouette width within the mode-local window (0.538).</span></span>
 <span></span>
 <span><span class="va">partition</span><span class="op">$</span><span class="va">K</span></span>
 <span><span class="co">#&gt; [1] 3</span></span>
@@ -285,16 +285,16 @@ modules.</p>
 <code class="sourceCode R"><span><span class="va">significance</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/test_significance.html">test_significance</a></span><span class="op">(</span></span>
 <span>  fit <span class="op">=</span> <span class="va">fit</span>,</span>
 <span>  partition <span class="op">=</span> <span class="va">partition</span>,</span>
-<span>  dpm_data <span class="op">=</span> <span class="va">dpm_data</span>,</span>
+<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span>,</span>
 <span>  fdr_thr <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  lfsr_thr <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; [DPM:Inference] Frequentist inference (FGLS) over 3 module(s).</span></span>
-<span><span class="co">#&gt; [DPM:Inference] Module 3 has 20 genes and 31 predictors; frequentist inference is underdetermined. Coefficients are retained, but SE, P value and FDR are set to NA.</span></span>
-<span><span class="co">#&gt; [DPM:Inference] Frequentist inference was estimable for 2 of 3 module(s).</span></span>
-<span><span class="co">#&gt; [DPM:Inference] Bayesian inference (lFSR): aligning posterior draws to the partition.</span></span>
-<span><span class="co">#&gt; [DPM:Inference] Dual-significant (FDR &lt; 0.05 and lFSR &lt; 0.05): 3 module-subtype association(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Inference] Frequentist inference (FGLS) over 3 module(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Inference] Module 3 has 20 genes and 31 predictors; frequentist inference is underdetermined. Coefficients are retained, but SE, P value and FDR are set to NA.</span></span>
+<span><span class="co">#&gt; [THREAD:Inference] Frequentist inference was estimable for 2 of 3 module(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Inference] Bayesian inference (lFSR): aligning posterior draws to the partition.</span></span>
+<span><span class="co">#&gt; [THREAD:Inference] Dual-significant (FDR &lt; 0.05 and lFSR &lt; 0.05): 3 module-subtype association(s).</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">significance</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span>
 <span><span class="co">#&gt;   cluster subtype module_n_genes n_predictors design_rank fgls_estimable</span></span>
@@ -327,18 +327,18 @@ modules.</p>
 <span><span class="co">#&gt;    cluster subtype module_n_genes n_predictors design_rank fgls_estimable</span></span>
 <span><span class="co">#&gt; 13       1 Micro-3            141           31          31           TRUE</span></span>
 <span><span class="co">#&gt; 32       2 Astro-1             39           31          31           TRUE</span></span>
-<span><span class="co">#&gt; 55       2 Oligo-3             39           31          31           TRUE</span></span>
+<span><span class="co">#&gt; 59       2 Oligo-3             39           31          31           TRUE</span></span>
 <span><span class="co">#&gt;      gamma_fgls      se_fgls    pval_fgls          fdr sig_fdr gamma_post_mean</span></span>
 <span><span class="co">#&gt; 13 8.537815e-05 1.852199e-05 5.469188e-06 0.0005086345    TRUE    5.540312e-05</span></span>
 <span><span class="co">#&gt; 32 6.908162e-04 1.404908e-04 5.840909e-04 0.0181068184    TRUE    6.219437e-05</span></span>
-<span><span class="co">#&gt; 55 1.546473e-03 3.368359e-04 8.879157e-04 0.0206440398    TRUE    9.571439e-05</span></span>
+<span><span class="co">#&gt; 59 1.546473e-03 3.368359e-04 8.879157e-04 0.0206440398    TRUE    9.571439e-05</span></span>
 <span><span class="co">#&gt;       hpd_lower    hpd_upper       lfsr sig_lfsr dual_significant</span></span>
 <span><span class="co">#&gt; 13 3.672685e-05 7.224654e-05 0.00000000     TRUE             TRUE</span></span>
 <span><span class="co">#&gt; 32 6.664876e-06 2.152448e-04 0.03333333     TRUE             TRUE</span></span>
-<span><span class="co">#&gt; 55 1.305387e-05 1.304463e-04 0.00000000     TRUE             TRUE</span></span></code></pre></div>
+<span><span class="co">#&gt; 59 1.305387e-05 1.304463e-04 0.00000000     TRUE             TRUE</span></span></code></pre></div>
 <p>The example contains only 24 genes but 31 cellular predictors.
 Consequently, some or all example modules can be underdetermined for
-frequentist inference. For such modules, DPM retains descriptive
+frequentist inference. For such modules, THREAD retains descriptive
 coefficients but sets the frequentist standard error, P value, and FDR
 to <code>NA</code>. They cannot be declared dual-significant. This
 behavior is intentional and allows the example to test the package
@@ -352,7 +352,7 @@ analysis.</p>
 <code class="sourceCode R"><span><span class="va">gene_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gene_score.html">gene_score</a></span><span class="op">(</span></span>
 <span>  partition <span class="op">=</span> <span class="va">partition</span>,</span>
 <span>  coefficients <span class="op">=</span> <span class="va">significance</span><span class="op">$</span><span class="va">coefficients</span>,</span>
-<span>  x_train <span class="op">=</span> <span class="va">dpm_data</span><span class="op">$</span><span class="va">x_train</span>,</span>
+<span>  x_train <span class="op">=</span> <span class="va">thread_data</span><span class="op">$</span><span class="va">x_train</span>,</span>
 <span>  top_n <span class="op">=</span> <span class="fl">10L</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
