@@ -3,8 +3,8 @@
 
 # THREAD
 
-[![R-CMD-check](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/R-CMD-check.yaml)
-[![pkgdown](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Jiacheng-Lou/DPM/actions/workflows/pkgdown.yaml)
+[![R-CMD-check](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/pkgdown.yaml)
 
 **THREAD** (*Trait Heterogeneity Regression through Expression
 Annotation and Dirichlet processes*) is an R package for integrating
@@ -49,7 +49,7 @@ if (!requireNamespace("remotes", quietly = TRUE)) {
 }
 
 remotes::install_github(
-  "Jiacheng-Lou/DPM",
+  "Jiacheng-Lou/THREAD",
   build_vignettes = TRUE
 )
 
@@ -392,7 +392,7 @@ The package includes:
 The pkgdown site is available at:
 
 ``` text
-https://jiacheng-lou.github.io/DPM/
+https://jiacheng-lou.github.io/THREAD/
 ```
 
 ## Reproducibility
@@ -427,7 +427,7 @@ THREAD is released under GPL-3.
 Please report software problems through GitHub Issues:
 
 ``` text
-https://github.com/Jiacheng-Lou/DPM/issues
+https://github.com/Jiacheng-Lou/THREAD/issues
 ```
 
 For scientific questions, contact:
