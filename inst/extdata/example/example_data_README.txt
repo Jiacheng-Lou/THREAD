@@ -33,6 +33,6 @@ workflow and does not redistribute the manuscript's real disease datasets.
 The gene-SNP mapping was generated for this example, and
 example_response.rds is a frozen derived output from the example workflow.
 example_ld_chr1.rds is a reduced chromosome-1 LD fixture derived from the
-1000 Genomes Project Phase 3 European (EUR) reference panel. DPM does not
+1000 Genomes Project Phase 3 European (EUR) reference panel. THREAD does not
 distribute the full genome-wide LD reference panel; users performing real
 analyses must provide a compatible ancestry-matched external LD reference.

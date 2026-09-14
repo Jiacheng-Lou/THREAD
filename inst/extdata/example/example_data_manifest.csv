@@ -1,6 +1,6 @@
 file,size_bytes,md5,description
 example_x.rds,44050,26304e041353b6dc51ceafae14d8647f,Gene-by-cellular-label expression matrix
-example_data_README.txt,1390,0bec1f7dd943c0cf12a84d8954db2a22,Example-data documentation
+example_data_README.txt,1393,85b2c04895634e7c648c365f88e7a587,Example-data documentation
 example_gene_snp_matches.rds,181792,75e5c9ca33ead0f86ce1ea4b2b0814c9,SNP-to-gene mapping subset
 example_gwas.tsv.gz,264882,b2041c304382000c498da0ad49500d79,GWAS summary-statistics subset
 example_ld_chr1.rds,999230,b9b9341475ba260337d060c8af9d59f0,Chromosome 1 LD subset
