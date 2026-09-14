@@ -25,7 +25,7 @@ gene_score(
   x_train,
   top_n = 200,
   out_dir = NULL,
-  prefix = "DPM",
+  prefix = "THREAD",
   verbose = TRUE
 )
 ```
@@ -35,21 +35,21 @@ gene_score(
 - partition:
 
   A partition from
-  [`get_partition`](https://jiacheng-lou.github.io/DPM/reference/get_partition.md)
+  [`get_partition`](https://jiacheng-lou.github.io/THREAD/reference/get_partition.md)
   (uses `$assignments`).
 
 - coefficients:
 
   The per-module coefficient list returned by
-  [`test_significance`](https://jiacheng-lou.github.io/DPM/reference/test_significance.md)
+  [`test_significance`](https://jiacheng-lou.github.io/THREAD/reference/test_significance.md)
   as `$coefficients` (named by module id, each a vector over cell
   subtypes).
 
 - x_train:
 
-  The gene-by-subtype matrix used to fit the model (`dpm_data$x_train`);
-  row names are gene identifiers and column order must match the
-  coefficient vectors.
+  The gene-by-subtype matrix used to fit the model
+  (`thread_data$x_train`); row names are gene identifiers and column
+  order must match the coefficient vectors.
 
 - top_n:
 
@@ -63,7 +63,7 @@ gene_score(
 
 - prefix:
 
-  File-name prefix used when `out_dir` is supplied. Default `"DPM"`.
+  File-name prefix used when `out_dir` is supplied. Default `"THREAD"`.
 
 - verbose:
 
@@ -87,8 +87,8 @@ A list with
 
 ``` r
 if (FALSE) { # \dontrun{
-sig <- test_significance(fit, partition, dpm_data)
-gs <- gene_score(partition, sig$coefficients, dpm_data$x_train, top_n = 200)
+sig <- test_significance(fit, partition, thread_data)
+gs <- gene_score(partition, sig$coefficients, thread_data$x_train, top_n = 200)
 head(gs$top_genes)
 } # }
 ```

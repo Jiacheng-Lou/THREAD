@@ -1,10 +1,10 @@
-# Prepare DPM model input
+# Prepare THREAD model input
 
 Aligns a gene-by-subtype expression matrix with a gene-level GWAS
 response, creates or validates initial cluster labels, recommends prior
-hyperparameters when they are not supplied, and returns a `dpm_data`
+hyperparameters when they are not supplied, and returns a `thread_data`
 object consumed by
-[`run_dpm()`](https://jiacheng-lou.github.io/DPM/reference/run_dpm.md).
+[`run_thread()`](https://jiacheng-lou.github.io/THREAD/reference/run_thread.md).
 
 The response is kept on the raw LD-corrected scale. No log transform or
 truncation is applied to y, because y, d0, d1 and d2 must remain on the
@@ -51,7 +51,7 @@ prepare_input(
 - priors:
 
   Optional list with alpha0, beta0, r and delta. When NULL,
-  [`recommend_priors()`](https://jiacheng-lou.github.io/DPM/reference/recommend_priors.md)
+  [`recommend_priors()`](https://jiacheng-lou.github.io/THREAD/reference/recommend_priors.md)
   is called.
 
 - gene2vec:
@@ -105,5 +105,5 @@ prepare_input(
 
 ## Value
 
-A list of class `dpm_data` with x_train, y_train, d0, d1, d2, z_init,
+A list of class `thread_data` with x_train, y_train, d0, d1, d2, z_init,
 gene_names and priors.

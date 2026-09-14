@@ -1,9 +1,9 @@
 # Read a gene2vec embedding file
 
 Read an external gene embedding file for gene2vec-based initialization
-in DPM. The file should contain one gene identifier column followed by
-numeric embedding dimensions. A Word2Vec-style metadata header, such as
-"25442 200", is automatically detected and skipped.
+in THREAD. The file should contain one gene identifier column followed
+by numeric embedding dimensions. A Word2Vec-style metadata header, such
+as "25442 200", is automatically detected and skipped.
 
 ## Usage
 

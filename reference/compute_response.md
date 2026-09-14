@@ -1,6 +1,6 @@
-# Compute LD-based heteroscedastic gene-level DPM response
+# Compute LD-based heteroscedastic gene-level THREAD response
 
-Compute LD-based heteroscedastic gene-level DPM response
+Compute LD-based heteroscedastic gene-level THREAD response
 
 ## Usage
 

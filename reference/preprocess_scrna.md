@@ -1,4 +1,4 @@
-# Preprocess single-cell expression into a DPM expression matrix
+# Preprocess single-cell expression into a THREAD expression matrix
 
 Converts a Seurat object or a gene-by-cell expression matrix into a
 gene-by-label pseudobulk matrix. Labels can be cell types, subtypes,
@@ -19,7 +19,7 @@ This function is intentionally not a full scRNA-seq preprocessing
 pipeline. Users should perform cell filtering, doublet removal, batch
 correction and cell annotation upstream when needed. Users who already
 have a gene-by-label matrix can pass it directly to
-[`prepare_input()`](https://jiacheng-lou.github.io/DPM/reference/prepare_input.md)
+[`prepare_input()`](https://jiacheng-lou.github.io/THREAD/reference/prepare_input.md)
 and skip this function.
 
 ## Usage
@@ -153,7 +153,7 @@ preprocess_scrna(
 ## Value
 
 A gene-by-label numeric matrix suitable for
-[`prepare_input()`](https://jiacheng-lou.github.io/DPM/reference/prepare_input.md).
+[`prepare_input()`](https://jiacheng-lou.github.io/THREAD/reference/prepare_input.md).
 
 ## Examples
 

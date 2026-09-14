@@ -1,13 +1,14 @@
 # Quality-control and harmonise GWAS summary statistics
 
 Applies a standard set of GWAS quality-control filters and returns a
-clean, uniformly named table that the downstream DPM functions consume.
-The input may use any column names; supply `col_map` to declare which of
-your columns correspond to the required fields. A user who already holds
-a clean table with the standard column names can pass it straight to
-[`match_snps_to_genes`](https://jiacheng-lou.github.io/DPM/reference/match_snps_to_genes.md)
+clean, uniformly named table that the downstream THREAD functions
+consume. The input may use any column names; supply `col_map` to declare
+which of your columns correspond to the required fields. A user who
+already holds a clean table with the standard column names can pass it
+straight to
+[`match_snps_to_genes`](https://jiacheng-lou.github.io/THREAD/reference/match_snps_to_genes.md)
 and
-[`compute_response`](https://jiacheng-lou.github.io/DPM/reference/compute_response.md)
+[`compute_response`](https://jiacheng-lou.github.io/THREAD/reference/compute_response.md)
 and skip this step.
 
 ## Usage

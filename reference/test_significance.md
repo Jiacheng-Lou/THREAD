@@ -17,7 +17,7 @@ since the Bayesian posterior mean is shrunk by the Lasso prior.
 test_significance(
   fit,
   partition,
-  dpm_data,
+  thread_data,
   method = "FGLS",
   fdr_thr = 0.05,
   lfsr_thr = 0.05,
@@ -30,19 +30,19 @@ test_significance(
 
 - fit:
 
-  A `dpm_fit` from
-  [`run_dpm`](https://jiacheng-lou.github.io/DPM/reference/run_dpm.md);
+  A `thread_fit` from
+  [`run_thread`](https://jiacheng-lou.github.io/THREAD/reference/run_thread.md);
   each draw carries `$z` and `$gamma`.
 
 - partition:
 
   A partition from
-  [`get_partition`](https://jiacheng-lou.github.io/DPM/reference/get_partition.md)
+  [`get_partition`](https://jiacheng-lou.github.io/THREAD/reference/get_partition.md)
   (uses `$assignments`).
 
-- dpm_data:
+- thread_data:
 
-  The `dpm_data` used to fit the model; supplies `x_train`, `y_train`
+  The `thread_data` used to fit the model; supplies `x_train`, `y_train`
   and `d0`, `d1`, `d2` on the same scale the sampler used.
 
 - method:
@@ -80,7 +80,7 @@ A list with the following elements:
 
   A named list of per-module FGLS coefficient vectors. These
   coefficients are used by
-  [`gene_score`](https://jiacheng-lou.github.io/DPM/reference/gene_score.md).
+  [`gene_score`](https://jiacheng-lou.github.io/THREAD/reference/gene_score.md).
 
 - module_diagnostics:
 
@@ -101,7 +101,7 @@ A list with the following elements:
 
 ``` r
 if (FALSE) { # \dontrun{
-sig <- test_significance(fit, partition, dpm_data)
+sig <- test_significance(fit, partition, thread_data)
 subset(sig$table, dual_significant)
 } # }
 ```

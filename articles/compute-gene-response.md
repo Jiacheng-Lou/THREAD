@@ -2,9 +2,9 @@
 
 ## Overview
 
-DPM models a gene-level response derived from GWAS marginal effect
+THREAD models a gene-level response derived from GWAS marginal effect
 estimates and local linkage disequilibrium. For each gene,
-[`compute_response()`](https://jiacheng-lou.github.io/DPM/reference/compute_response.md)
+[`compute_response()`](https://jiacheng-lou.github.io/THREAD/reference/compute_response.md)
 returns:
 
 - `final_y`, the LD-corrected response;
@@ -17,12 +17,12 @@ returns:
 
 ``` r
 
-library(DPM)
+library(THREAD)
 
 example_dir <- system.file(
   "extdata",
   "example",
-  package = "DPM",
+  package = "THREAD",
   mustWork = TRUE
 )
 
@@ -48,7 +48,7 @@ example_ld_chr1.rds
 ```
 
 The `{chr}` placeholder in `ld_file_template` allows
-[`compute_response()`](https://jiacheng-lou.github.io/DPM/reference/compute_response.md)
+[`compute_response()`](https://jiacheng-lou.github.io/THREAD/reference/compute_response.md)
 to locate chromosome-specific files.
 
 ## Compute the response
@@ -70,19 +70,19 @@ observed_response <- compute_response(
   drop_failed = FALSE,
   verbose = TRUE
 )
-#> [DPM:Response] compute_response settings: match_mode = snp_name, LD symmetrization = always enabled, PSD repair = trace-preserving eigenvalue clipping, n_cores = 1, set_dt_threads = TRUE.
-#> [DPM:Response] Restricting gene-SNP matches to requested genes: 200 of 200 gene(s).
-#> [DPM:Response] Merged GWAS Beta/SE into matches:  23461  matched SNP-gene row(s).
-#> [DPM:Response] Computing DPM heteroscedastic response over 1 chromosome(s).
-#> [DPM:Response] Processing chromosome 1 ...
-#> [DPM:Response] Status summary for chromosome 1:
+#> [THREAD:Response] compute_response settings: match_mode = snp_name, LD symmetrization = always enabled, PSD repair = trace-preserving eigenvalue clipping, n_cores = 1, set_dt_threads = TRUE.
+#> [THREAD:Response] Restricting gene-SNP matches to requested genes: 200 of 200 gene(s).
+#> [THREAD:Response] Merged GWAS Beta/SE into matches:  23461  matched SNP-gene row(s).
+#> [THREAD:Response] Computing THREAD heteroscedastic response over 1 chromosome(s).
+#> [THREAD:Response] Processing chromosome 1 ...
+#> [THREAD:Response] Status summary for chromosome 1:
 #> 
 #>  ok 
 #> 200
-#> [DPM:Response] LD diagnostics for chromosome 1: median missing-both fraction = 0.8726; median negative-eigen mass ratio = 0.0156.
+#> [THREAD:Response] LD diagnostics for chromosome 1: median missing-both fraction = 0.8726; median negative-eigen mass ratio = 0.0156.
 #> 
-#> [DPM:Response] Chromosome 1 complete: 200 successful gene(s), 200 returned record(s).
-#> [DPM:Response] Computed response for 200 gene(s). Valid finite final_y: 200.
+#> [THREAD:Response] Chromosome 1 complete: 200 successful gene(s), 200 returned record(s).
+#> [THREAD:Response] Computed response for 200 gene(s). Valid finite final_y: 200.
 
 table(observed_response$status, useNA = "ifany")
 #> 
@@ -205,8 +205,8 @@ genome build.
 ## LD matrix reconstruction
 
 Chromosome-level LD files may store an off-diagonal SNP pair in only one
-direction. DPM recovers the reciprocal entry and constructs a symmetric
-gene-level LD matrix.
+direction. THREAD recovers the reciprocal entry and constructs a
+symmetric gene-level LD matrix.
 
 Pairs absent in both directions are treated as zero and their fraction
 is retained as a diagnostic. When sparse pairwise storage produces an
@@ -220,7 +220,7 @@ response calculation to genes present in the final expression matrix.
 
 ``` r
 
-checkpoint_dir <- file.path(tempdir(), "DPM_response_checkpoints")
+checkpoint_dir <- file.path(tempdir(), "THREAD_response_checkpoints")
 
 response <- compute_response(
   gene_snp_matches = gene_snp_matches,

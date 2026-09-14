@@ -1,8 +1,8 @@
-# Getting Started with DPM
+# Getting Started with THREAD
 
 ## Overview
 
-DPM integrates an LD-corrected gene-level GWAS response with a
+THREAD integrates an LD-corrected gene-level GWAS response with a
 gene-by-cellular-label expression matrix. It uses a heteroscedastic
 Dirichlet process mixture to infer latent gene modules and
 module-specific cellular coefficients.
@@ -21,12 +21,12 @@ interpretation.
 
 ``` r
 
-library(DPM)
+library(THREAD)
 
 example_dir <- system.file(
   "extdata",
   "example",
-  package = "DPM",
+  package = "THREAD",
   mustWork = TRUE
 )
 
@@ -88,7 +88,7 @@ The response is retained on its original LD-corrected scale. Negative
 
 ## Prepare model input
 
-[`prepare_input()`](https://jiacheng-lou.github.io/DPM/reference/prepare_input.md)
+[`prepare_input()`](https://jiacheng-lou.github.io/THREAD/reference/prepare_input.md)
 aligns genes between the expression matrix and the response, retains
 response records with `status == "ok"`, generates initial cluster
 labels, and recommends prior hyperparameters when priors are not
@@ -96,7 +96,7 @@ supplied.
 
 ``` r
 
-dpm_data <- prepare_input(
+thread_data <- prepare_input(
   X = example_X,
   response = example_response,
   K_init = 3L,
@@ -104,20 +104,20 @@ dpm_data <- prepare_input(
   seed = 2028L,
   verbose = TRUE
 )
-#> [DPM:Input] Using 200 response row(s) with status == 'ok'; excluded 0 non-ok row(s).
-#> [DPM:Input] Aligned 200 genes across X (200 total) and response (200 total).
-#> [DPM:Input] Initialisation: k-means fallback on cbind(y, X), K = 3.
-#> [DPM:Input] Prior recommendation: cluster-wise weighted ridge over K = 3 initial clusters.
-#> [DPM:Input] Recommended priors: alpha0 = 2, beta0 = 1.277495e-07, r = 1, delta = 1, prior_sd = 2.918327e-04.
-#> [DPM:Input] Prepared dpm_data: 200 genes x 31 subtypes, K_init = 3.
+#> [THREAD:Input] Using 200 response row(s) with status == 'ok'; excluded 0 non-ok row(s).
+#> [THREAD:Input] Aligned 200 genes across X (200 total) and response (200 total).
+#> [THREAD:Input] Initialisation: k-means fallback on cbind(y, X), K = 3.
+#> [THREAD:Input] Prior recommendation: cluster-wise weighted ridge over K = 3 initial clusters.
+#> [THREAD:Input] Recommended priors: alpha0 = 2, beta0 = 1.277495e-07, r = 1, delta = 1, prior_sd = 2.918327e-04.
+#> [THREAD:Input] Prepared thread_data: 200 genes x 31 subtypes, K_init = 3.
 
-dim(dpm_data$x_train)
+dim(thread_data$x_train)
 #> [1] 200  31
-table(dpm_data$z_init)
+table(thread_data$z_init)
 #> 
 #>   1   2   3 
 #>  69  22 109
-dpm_data$priors
+thread_data$priors
 #> $alpha0
 #> [1] 2
 #> 
@@ -143,11 +143,11 @@ dpm_data$priors
 #> [1] 0.0002918327
 ```
 
-Gene2vec initialization is optional. When no embedding is supplied, DPM
-uses a k-means fallback based on the aligned response and expression
-matrix.
+Gene2vec initialization is optional. When no embedding is supplied,
+THREAD uses a k-means fallback based on the aligned response and
+expression matrix.
 
-## Fit the DPM model
+## Fit the THREAD model
 
 The settings below are intentionally short so that the vignette builds
 quickly. A production analysis should use substantially longer chains
@@ -155,8 +155,8 @@ and should evaluate stability across seeds.
 
 ``` r
 
-fit <- run_dpm(
-  dpm_data = dpm_data,
+fit <- run_thread(
+  thread_data = thread_data,
   alpha = 0.1,
   m = 2L,
   n_iter = 60L,
@@ -166,14 +166,14 @@ fit <- run_dpm(
   save_scales = FALSE,
   verbose = TRUE
 )
-#> [DPM:MCMC] Using K_init = 3 from supplied z_init (ignoring K_init = 10).
-#> [DPM:MCMC] 200 genes x 31 subtypes | alpha = 0.1, m = 2, K_init = 3
-#> [DPM:MCMC] iterations = 60, burnin = 30, thin = 1, expected retained draws = 30
-#> [DPM:MCMC] auxiliary-cluster proposal prior_sd = 0.000291833
-#> [DPM:MCMC] save_scales =  FALSE
+#> [THREAD:MCMC] Using K_init = 3 from supplied z_init (ignoring K_init = 10).
+#> [THREAD:MCMC] 200 genes x 31 subtypes | alpha = 0.1, m = 2, K_init = 3
+#> [THREAD:MCMC] iterations = 60, burnin = 30, thin = 1, expected retained draws = 30
+#> [THREAD:MCMC] auxiliary-cluster proposal prior_sd = 0.000291833
+#> [THREAD:MCMC] save_scales =  FALSE
 #>   |                                                                              |                                                                      |   0%  |                                                                              |=                                                                     |   2%  |                                                                              |==                                                                    |   3%  |                                                                              |====                                                                  |   5%  |                                                                              |=====                                                                 |   7%  |                                                                              |======                                                                |   8%  |                                                                              |=======                                                               |  10%  |                                                                              |========                                                              |  12%  |                                                                              |=========                                                             |  13%  |                                                                              |==========                                                            |  15%  |                                                                              |============                                                          |  17%  |                                                                              |=============                                                         |  18%  |                                                                              |==============                                                        |  20%  |                                                                              |===============                                                       |  22%  |                                                                              |================                                                      |  23%  |                                                                              |==================                                                    |  25%  |                                                                              |===================                                                   |  27%  |                                                                              |====================                                                  |  28%  |                                                                              |=====================                                                 |  30%  |                                                                              |======================                                                |  32%  |                                                                              |=======================                                               |  33%  |                                                                              |========================                                              |  35%  |                                                                              |==========================                                            |  37%  |                                                                              |===========================                                           |  38%  |                                                                              |============================                                          |  40%  |                                                                              |=============================                                         |  42%  |                                                                              |==============================                                        |  43%  |                                                                              |================================                                      |  45%  |                                                                              |=================================                                     |  47%  |                                                                              |==================================                                    |  48%  |                                                                              |===================================                                   |  50%  |                                                                              |====================================                                  |  52%  |                                                                              |=====================================                                 |  53%  |                                                                              |======================================                                |  55%  |                                                                              |========================================                              |  57%  |                                                                              |=========================================                             |  58%  |                                                                              |==========================================                            |  60%  |                                                                              |===========================================                           |  62%  |                                                                              |============================================                          |  63%  |                                                                              |==============================================                        |  65%  |                                                                              |===============================================                       |  67%  |                                                                              |================================================                      |  68%  |                                                                              |=================================================                     |  70%  |                                                                              |==================================================                    |  72%  |                                                                              |===================================================                   |  73%  |                                                                              |====================================================                  |  75%  |                                                                              |======================================================                |  77%  |                                                                              |=======================================================               |  78%  |                                                                              |========================================================              |  80%  |                                                                              |=========================================================             |  82%  |                                                                              |==========================================================            |  83%  |                                                                              |============================================================          |  85%  |                                                                              |=============================================================         |  87%  |                                                                              |==============================================================        |  88%  |                                                                              |===============================================================       |  90%  |                                                                              |================================================================      |  92%  |                                                                              |=================================================================     |  93%  |                                                                              |==================================================================    |  95%  |                                                                              |====================================================================  |  97%  |                                                                              |===================================================================== |  98%  |                                                                              |======================================================================| 100%
-#> [DPM:MCMC] MCMC complete in 0.8 secs. Retained 30 draws.
-#> [DPM:MCMC] Occupied modules across retained draws: min = 3, median = 4.0, max = 4.
+#> [THREAD:MCMC] MCMC complete in 0.8 secs. Retained 30 draws.
+#> [THREAD:MCMC] Occupied modules across retained draws: min = 3, median = 4.0, max = 4.
 
 length(fit$samples)
 #> [1] 30
@@ -184,7 +184,7 @@ summary(fit$diagnostics$cluster_counts)
 
 ## Obtain a point-estimate partition
 
-DPM summarizes posterior label draws through a posterior similarity
+THREAD summarizes posterior label draws through a posterior similarity
 matrix. The point-estimate partition is selected by PAM silhouette
 within a local window around the posterior-supported number of major
 modules.
@@ -198,9 +198,9 @@ partition <- get_partition(
   return_dissimilarity = FALSE,
   verbose = TRUE
 )
-#> [DPM:Partition] Trajectory mode of major clusters: 4 (overall 50.0%, last 30 draws 50.0%).
-#> [DPM:Partition] Silhouette K search window: 3, 4, 5 (mode_k = 4, mode_window = 1).
-#> [DPM:Partition] Selected K = 3 by maximum average silhouette width within the mode-local window (0.538).
+#> [THREAD:Partition] Trajectory mode of major clusters: 4 (overall 50.0%, last 30 draws 50.0%).
+#> [THREAD:Partition] Silhouette K search window: 3, 4, 5 (mode_k = 4, mode_window = 1).
+#> [THREAD:Partition] Selected K = 3 by maximum average silhouette width within the mode-local window (0.538).
 
 partition$K
 #> [1] 3
@@ -212,7 +212,7 @@ table(partition$assignments)
 
 ## Test module-cellular-label associations
 
-[`test_significance()`](https://jiacheng-lou.github.io/DPM/reference/test_significance.md)
+[`test_significance()`](https://jiacheng-lou.github.io/THREAD/reference/test_significance.md)
 combines:
 
 - feasible generalized least squares with BH FDR control;
@@ -224,16 +224,16 @@ combines:
 significance <- test_significance(
   fit = fit,
   partition = partition,
-  dpm_data = dpm_data,
+  thread_data = thread_data,
   fdr_thr = 0.05,
   lfsr_thr = 0.05,
   verbose = TRUE
 )
-#> [DPM:Inference] Frequentist inference (FGLS) over 3 module(s).
-#> [DPM:Inference] Module 3 has 20 genes and 31 predictors; frequentist inference is underdetermined. Coefficients are retained, but SE, P value and FDR are set to NA.
-#> [DPM:Inference] Frequentist inference was estimable for 2 of 3 module(s).
-#> [DPM:Inference] Bayesian inference (lFSR): aligning posterior draws to the partition.
-#> [DPM:Inference] Dual-significant (FDR < 0.05 and lFSR < 0.05): 3 module-subtype association(s).
+#> [THREAD:Inference] Frequentist inference (FGLS) over 3 module(s).
+#> [THREAD:Inference] Module 3 has 20 genes and 31 predictors; frequentist inference is underdetermined. Coefficients are retained, but SE, P value and FDR are set to NA.
+#> [THREAD:Inference] Frequentist inference was estimable for 2 of 3 module(s).
+#> [THREAD:Inference] Bayesian inference (lFSR): aligning posterior draws to the partition.
+#> [THREAD:Inference] Dual-significant (FDR < 0.05 and lFSR < 0.05): 3 module-subtype association(s).
 
 head(significance$table)
 #>   cluster subtype module_n_genes n_predictors design_rank fgls_estimable
@@ -279,7 +279,7 @@ subset(significance$table, dual_significant)
 
 The example contains only 24 genes but 31 cellular predictors.
 Consequently, some or all example modules can be underdetermined for
-frequentist inference. For such modules, DPM retains descriptive
+frequentist inference. For such modules, THREAD retains descriptive
 coefficients but sets the frequentist standard error, P value, and FDR
 to `NA`. They cannot be declared dual-significant. This behavior is
 intentional and allows the example to test the package interface without
@@ -292,7 +292,7 @@ presenting the miniature dataset as a valid biological analysis.
 gene_results <- gene_score(
   partition = partition,
   coefficients = significance$coefficients,
-  x_train = dpm_data$x_train,
+  x_train = thread_data$x_train,
   top_n = 10L,
   verbose = TRUE
 )

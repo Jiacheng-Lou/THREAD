@@ -1,4 +1,4 @@
-# Point estimate of the gene partition from a fitted DPM model
+# Point estimate of the gene partition from a fitted THREAD model
 
 Turns posterior label draws into a single point-estimate partition.
 Because mixture labels are exchangeable, the function first constructs
@@ -25,8 +25,8 @@ get_partition(
 
 - fit:
 
-  A `dpm_fit` object from
-  [`run_dpm`](https://jiacheng-lou.github.io/DPM/reference/run_dpm.md).
+  A `thread_fit` object from
+  [`run_thread`](https://jiacheng-lou.github.io/THREAD/reference/run_thread.md).
   For backward compatibility, objects with `$results` instead of
   `$samples` are also accepted.
 

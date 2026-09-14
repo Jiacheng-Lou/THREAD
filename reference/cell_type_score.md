@@ -25,7 +25,7 @@ cell_type_score(sig_result)
 - sig_result:
 
   The list returned by
-  [`test_significance`](https://jiacheng-lou.github.io/DPM/reference/test_significance.md)
+  [`test_significance`](https://jiacheng-lou.github.io/THREAD/reference/test_significance.md)
   (uses `$table`).
 
 ## Value
@@ -39,7 +39,7 @@ and `grade` (0/1/2/3 for `q >= 0.05`, `< 0.05`, `< 0.01`, `< 0.001`).
 
 ``` r
 if (FALSE) { # \dontrun{
-sig <- test_significance(fit, partition, dpm_data)
+sig <- test_significance(fit, partition, thread_data)
 cts <- cell_type_score(sig)
 head(cts)
 } # }

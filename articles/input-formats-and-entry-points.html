@@ -5,12 +5,12 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>DPM Input Formats and Workflow Entry Points • DPM</title>
+<title>THREAD Input Formats and Workflow Entry Points • THREAD</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="../deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="DPM Input Formats and Workflow Entry Points">
+<script src="../deps/headroom-0.11.0/headroom.min.js"></script><script src="../deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="../deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="../deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="../deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="../deps/search-1.0.0/fuse.min.js"></script><script src="../deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="../pkgdown.js"></script><meta property="og:title" content="THREAD Input Formats and Workflow Entry Points">
 </head>
 <body>
     <a href="#main" class="visually-hidden-focusable">Skip to contents</a>
@@ -18,7 +18,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="../index.html">DPM</a>
+    <a class="navbar-brand me-2" href="../index.html">THREAD</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
@@ -36,9 +36,9 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Workflows</h6></li>
-    <li><a class="dropdown-item" href="../articles/get-started.html">Getting Started with DPM</a></li>
+    <li><a class="dropdown-item" href="../articles/get-started.html">Getting Started with THREAD</a></li>
     <li><a class="dropdown-item" href="../articles/compute-gene-response.html">Computing the LD-Corrected Gene-Level Response</a></li>
-    <li><a class="dropdown-item" href="../articles/input-formats-and-entry-points.html">DPM Input Formats and Workflow Entry Points</a></li>
+    <li><a class="dropdown-item" href="../articles/input-formats-and-entry-points.html">THREAD Input Formats and Workflow Entry Points</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -47,7 +47,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Jiacheng-Lou/DPM/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Jiacheng-Lou/THREAD/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -61,10 +61,10 @@
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
 
-      <h1>DPM Input Formats and Workflow Entry Points</h1>
+      <h1>THREAD Input Formats and Workflow Entry Points</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Jiacheng-Lou/DPM/blob/main/vignettes/input-formats-and-entry-points.Rmd" class="external-link"><code>vignettes/input-formats-and-entry-points.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Jiacheng-Lou/THREAD/blob/main/vignettes/input-formats-and-entry-points.Rmd" class="external-link"><code>vignettes/input-formats-and-entry-points.Rmd</code></a></small>
       <div class="d-none name"><code>input-formats-and-entry-points.Rmd</code></div>
     </div>
 
@@ -73,7 +73,7 @@
 <div class="section level2">
 <h2 id="modular-workflow">Modular workflow<a class="anchor" aria-label="anchor" href="#modular-workflow"></a>
 </h2>
-<p>DPM is organized as a modular workflow. Users may start from raw
+<p>THREAD is organized as a modular workflow. Users may start from raw
 single-cell data and raw GWAS summary statistics, or enter at a later
 stage when prepared objects are already available.</p>
 <pre class="text"><code>single-cell expression
@@ -90,7 +90,7 @@ raw GWAS summary statistics
 
 X + response
     -&gt; prepare_input()
-    -&gt; run_dpm()
+    -&gt; run_thread()
     -&gt; get_partition()
     -&gt; test_significance()
     -&gt; gene_score() and cell_type_score()</code></pre>
@@ -149,7 +149,7 @@ size.</p>
 <h2 id="gene-annotation-and-snp-to-gene-mapping">Gene annotation and SNP-to-gene mapping<a class="anchor" aria-label="anchor" href="#gene-annotation-and-snp-to-gene-mapping"></a>
 </h2>
 <p>A gene annotation table must provide a gene identifier, chromosome,
-start position, and end position. DPM maps SNPs to the annotated gene
+start position, and end position. THREAD maps SNPs to the annotated gene
 body extended by a user-defined genomic window.</p>
 <p>The standard mapping output contains:</p>
 <pre class="text"><code><span><span class="va">gene_name</span></span>
@@ -208,7 +208,7 @@ truncated or log transformed.</p>
 <h2 id="prepared-model-input">Prepared model input<a class="anchor" aria-label="anchor" href="#prepared-model-input"></a>
 </h2>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">dpm_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_input.html">prepare_input</a></span><span class="op">(</span></span>
+<code class="sourceCode R"><span><span class="va">thread_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/prepare_input.html">prepare_input</a></span><span class="op">(</span></span>
 <span>  X <span class="op">=</span> <span class="va">X</span>,</span>
 <span>  response <span class="op">=</span> <span class="va">response</span>,</span>
 <span>  gene2vec <span class="op">=</span> <span class="va">gene2vec</span>,</span>
@@ -218,15 +218,15 @@ truncated or log transformed.</p>
 <p><code><a href="../reference/prepare_input.html">prepare_input()</a></code> aligns gene identifiers, uses response
 records with <code>status == "ok"</code>, initializes gene labels, and
 recommends prior hyperparameters when required.</p>
-<p>Gene2vec is optional. When it is absent, DPM uses a k-means
+<p>Gene2vec is optional. When it is absent, THREAD uses a k-means
 fallback.</p>
 </div>
 <div class="section level2">
 <h2 id="model-fitting">Model fitting<a class="anchor" aria-label="anchor" href="#model-fitting"></a>
 </h2>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_dpm.html">run_dpm</a></span><span class="op">(</span></span>
-<span>  dpm_data <span class="op">=</span> <span class="va">dpm_data</span>,</span>
+<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/run_thread.html">run_thread</a></span><span class="op">(</span></span>
+<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
 <span>  m <span class="op">=</span> <span class="fl">3L</span>,</span>
 <span>  n_iter <span class="op">=</span> <span class="fl">30000L</span>,</span>
@@ -254,7 +254,7 @@ trajectories, and robustness across seeds.</p>
 <code class="sourceCode R"><span><span class="va">significance</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/test_significance.html">test_significance</a></span><span class="op">(</span></span>
 <span>  fit <span class="op">=</span> <span class="va">fit</span>,</span>
 <span>  partition <span class="op">=</span> <span class="va">partition</span>,</span>
-<span>  dpm_data <span class="op">=</span> <span class="va">dpm_data</span>,</span>
+<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span>,</span>
 <span>  fdr_thr <span class="op">=</span> <span class="fl">0.05</span>,</span>
 <span>  lfsr_thr <span class="op">=</span> <span class="fl">0.05</span></span>
 <span><span class="op">)</span></span></code></pre></div>
@@ -272,7 +272,7 @@ and FDR values are set to <code>NA</code>.</p>
 <code class="sourceCode R"><span><span class="va">gene_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/gene_score.html">gene_score</a></span><span class="op">(</span></span>
 <span>  partition <span class="op">=</span> <span class="va">partition</span>,</span>
 <span>  coefficients <span class="op">=</span> <span class="va">significance</span><span class="op">$</span><span class="va">coefficients</span>,</span>
-<span>  x_train <span class="op">=</span> <span class="va">dpm_data</span><span class="op">$</span><span class="va">x_train</span></span>
+<span>  x_train <span class="op">=</span> <span class="va">thread_data</span><span class="op">$</span><span class="va">x_train</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">cellular_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/cell_type_score.html">cell_type_score</a></span><span class="op">(</span><span class="va">significance</span><span class="op">)</span></span></code></pre></div>
@@ -289,7 +289,7 @@ independent significance tests.</p>
 </colgroup>
 <thead><tr class="header">
 <th>Available inputs</th>
-<th>First required DPM function</th>
+<th>First required THREAD function</th>
 </tr></thead>
 <tbody>
 <tr class="odd">
@@ -316,12 +316,12 @@ independent significance tests.</p>
 <td><code><a href="../reference/prepare_input.html">prepare_input()</a></code></td>
 </tr>
 <tr class="even">
-<td>Prepared <code>dpm_data</code>
+<td>Prepared <code>thread_data</code>
 </td>
-<td><code><a href="../reference/run_dpm.html">run_dpm()</a></code></td>
+<td><code><a href="../reference/run_thread.html">run_thread()</a></code></td>
 </tr>
 <tr class="odd">
-<td>Fitted <code>dpm_fit</code>
+<td>Fitted <code>thread_fit</code>
 </td>
 <td><code><a href="../reference/get_partition.html">get_partition()</a></code></td>
 </tr>

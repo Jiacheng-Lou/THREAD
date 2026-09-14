@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<title>Computing the LD-Corrected Gene-Level Response • DPM</title>
+<title>Computing the LD-Corrected Gene-Level Response • THREAD</title>
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -18,7 +18,7 @@
 
     <nav class="navbar navbar-expand-lg fixed-top bg-primary" data-bs-theme="dark" aria-label="Site navigation"><div class="container">
 
-    <a class="navbar-brand me-2" href="../index.html">DPM</a>
+    <a class="navbar-brand me-2" href="../index.html">THREAD</a>
 
     <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Released version">0.1.0</small>
 
@@ -36,9 +36,9 @@
   <ul class="dropdown-menu" aria-labelledby="dropdown-articles">
 <li><hr class="dropdown-divider"></li>
     <li><h6 class="dropdown-header" data-toc-skip>Workflows</h6></li>
-    <li><a class="dropdown-item" href="../articles/get-started.html">Getting Started with DPM</a></li>
+    <li><a class="dropdown-item" href="../articles/get-started.html">Getting Started with THREAD</a></li>
     <li><a class="dropdown-item" href="../articles/compute-gene-response.html">Computing the LD-Corrected Gene-Level Response</a></li>
-    <li><a class="dropdown-item" href="../articles/input-formats-and-entry-points.html">DPM Input Formats and Workflow Entry Points</a></li>
+    <li><a class="dropdown-item" href="../articles/input-formats-and-entry-points.html">THREAD Input Formats and Workflow Entry Points</a></li>
   </ul>
 </li>
 <li class="nav-item"><a class="nav-link" href="../news/index.html">Changelog</a></li>
@@ -47,7 +47,7 @@
 <li class="nav-item"><form class="form-inline" role="search">
  <input class="form-control" type="search" name="search-input" id="search-input" autocomplete="off" aria-label="Search site" placeholder="Search for" data-search-index="../search.json">
 </form></li>
-<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Jiacheng-Lou/DPM/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
+<li class="nav-item"><a class="external-link nav-link" href="https://github.com/Jiacheng-Lou/THREAD/" aria-label="GitHub"><span class="fa fab fa-github fa-lg"></span></a></li>
       </ul>
 </div>
 
@@ -64,7 +64,7 @@
       <h1>Computing the LD-Corrected Gene-Level Response</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/Jiacheng-Lou/DPM/blob/main/vignettes/compute-gene-response.Rmd" class="external-link"><code>vignettes/compute-gene-response.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/Jiacheng-Lou/THREAD/blob/main/vignettes/compute-gene-response.Rmd" class="external-link"><code>vignettes/compute-gene-response.Rmd</code></a></small>
       <div class="d-none name"><code>compute-gene-response.Rmd</code></div>
     </div>
 
@@ -73,7 +73,7 @@
 <div class="section level2">
 <h2 id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a>
 </h2>
-<p>DPM models a gene-level response derived from GWAS marginal effect
+<p>THREAD models a gene-level response derived from GWAS marginal effect
 estimates and local linkage disequilibrium. For each gene,
 <code><a href="../reference/compute_response.html">compute_response()</a></code> returns:</p>
 <ul>
@@ -93,12 +93,12 @@ heteroscedastic variance coefficients;</li>
 <h2 id="locate-the-installed-example-inputs">Locate the installed example inputs<a class="anchor" aria-label="anchor" href="#locate-the-installed-example-inputs"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jiacheng-lou.github.io/DPM/">DPM</a></span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jiacheng-lou.github.io/THREAD/">THREAD</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">example_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
 <span>  <span class="st">"extdata"</span>,</span>
 <span>  <span class="st">"example"</span>,</span>
-<span>  package <span class="op">=</span> <span class="st">"DPM"</span>,</span>
+<span>  package <span class="op">=</span> <span class="st">"THREAD"</span>,</span>
 <span>  mustWork <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -140,19 +140,19 @@ files.</p>
 <span>  drop_failed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; [DPM:Response] compute_response settings: match_mode = snp_name, LD symmetrization = always enabled, PSD repair = trace-preserving eigenvalue clipping, n_cores = 1, set_dt_threads = TRUE.</span></span>
-<span><span class="co">#&gt; [DPM:Response] Restricting gene-SNP matches to requested genes: 200 of 200 gene(s).</span></span>
-<span><span class="co">#&gt; [DPM:Response] Merged GWAS Beta/SE into matches:  23461  matched SNP-gene row(s).</span></span>
-<span><span class="co">#&gt; [DPM:Response] Computing DPM heteroscedastic response over 1 chromosome(s).</span></span>
-<span><span class="co">#&gt; [DPM:Response] Processing chromosome 1 ...</span></span>
-<span><span class="co">#&gt; [DPM:Response] Status summary for chromosome 1:</span></span>
+<span><span class="co">#&gt; [THREAD:Response] compute_response settings: match_mode = snp_name, LD symmetrization = always enabled, PSD repair = trace-preserving eigenvalue clipping, n_cores = 1, set_dt_threads = TRUE.</span></span>
+<span><span class="co">#&gt; [THREAD:Response] Restricting gene-SNP matches to requested genes: 200 of 200 gene(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Response] Merged GWAS Beta/SE into matches:  23461  matched SNP-gene row(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Response] Computing THREAD heteroscedastic response over 1 chromosome(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Response] Processing chromosome 1 ...</span></span>
+<span><span class="co">#&gt; [THREAD:Response] Status summary for chromosome 1:</span></span>
 <span><span class="co">#&gt; </span></span>
 <span><span class="co">#&gt;  ok </span></span>
 <span><span class="co">#&gt; 200</span></span>
-<span><span class="co">#&gt; [DPM:Response] LD diagnostics for chromosome 1: median missing-both fraction = 0.8726; median negative-eigen mass ratio = 0.0156.</span></span>
+<span><span class="co">#&gt; [THREAD:Response] LD diagnostics for chromosome 1: median missing-both fraction = 0.8726; median negative-eigen mass ratio = 0.0156.</span></span>
 <span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; [DPM:Response] Chromosome 1 complete: 200 successful gene(s), 200 returned record(s).</span></span>
-<span><span class="co">#&gt; [DPM:Response] Computed response for 200 gene(s). Valid finite final_y: 200.</span></span>
+<span><span class="co">#&gt; [THREAD:Response] Chromosome 1 complete: 200 successful gene(s), 200 returned record(s).</span></span>
+<span><span class="co">#&gt; [THREAD:Response] Computed response for 200 gene(s). Valid finite final_y: 200.</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">observed_response</span><span class="op">$</span><span class="va">status</span>, useNA <span class="op">=</span> <span class="st">"ifany"</span><span class="op">)</span></span>
 <span><span class="co">#&gt; </span></span>
@@ -264,7 +264,7 @@ same genome build.</p>
 <h2 id="ld-matrix-reconstruction">LD matrix reconstruction<a class="anchor" aria-label="anchor" href="#ld-matrix-reconstruction"></a>
 </h2>
 <p>Chromosome-level LD files may store an off-diagonal SNP pair in only
-one direction. DPM recovers the reciprocal entry and constructs a
+one direction. THREAD recovers the reciprocal entry and constructs a
 symmetric gene-level LD matrix.</p>
 <p>Pairs absent in both directions are treated as zero and their
 fraction is retained as a diagnostic. When sparse pairwise storage
@@ -279,7 +279,7 @@ trace.</p>
 response calculation to genes present in the final expression
 matrix.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">checkpoint_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"DPM_response_checkpoints"</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">checkpoint_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"THREAD_response_checkpoints"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/compute_response.html">compute_response</a></span><span class="op">(</span></span>
 <span>  gene_snp_matches <span class="op">=</span> <span class="va">gene_snp_matches</span>,</span>

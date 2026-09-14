@@ -1,23 +1,23 @@
-# Fit the DPM model by MCMC
+# Fit the THREAD model by MCMC
 
-Runs the Dirichlet-process-mixture sampler on a prepared `dpm_data`
-object and returns a `dpm_fit` object holding the posterior draws,
+Runs the Dirichlet-process-mixture sampler on a prepared `thread_data`
+object and returns a `thread_fit` object holding the posterior draws,
 diagnostics and settings. Cluster labels are updated by Neal's Algorithm
 8 (auxiliary components proposed from the prior); the coefficient
 vectors are updated by stepping-out slice sampling; the Bayesian-Lasso
 scale parameters have closed-form conjugate updates.
 
 All hyperparameters are explicit arguments or are read from
-`dpm_data$priors`; the function holds no hidden state. Posterior draws
-are stored separately from the input data because they can be large; the
-downstream functions therefore take both the `dpm_fit` and the
-`dpm_data`.
+`thread_data$priors`; the function holds no hidden state. Posterior
+draws are stored separately from the input data because they can be
+large; the downstream functions therefore take both the `thread_fit` and
+the `thread_data`.
 
 ## Usage
 
 ``` r
-run_dpm(
-  dpm_data,
+run_thread(
+  thread_data,
   alpha = 0.1,
   m = 3,
   K_init = 10,
@@ -35,10 +35,10 @@ run_dpm(
 
 ## Arguments
 
-- dpm_data:
+- thread_data:
 
   A list produced by
-  [`prepare_input()`](https://jiacheng-lou.github.io/DPM/reference/prepare_input.md)
+  [`prepare_input()`](https://jiacheng-lou.github.io/THREAD/reference/prepare_input.md)
   containing at least `x_train` (gene-by-subtype matrix), `y_train`
   (response vector), `d0`, `d1`, `d2` (heteroscedastic-variance
   coefficients) and, optionally, `z_init` (starting labels),
@@ -72,7 +72,7 @@ run_dpm(
 
 - priors:
 
-  Optional list overriding `dpm_data$priors`; must contain `alpha0`,
+  Optional list overriding `thread_data$priors`; must contain `alpha0`,
   `beta0`, `r`, `delta`.
 
 - seed:
@@ -99,7 +99,7 @@ run_dpm(
 
 ## Value
 
-An object of class `dpm_fit`: a list with
+An object of class `thread_fit`: a list with
 
 - samples:
 
@@ -123,7 +123,7 @@ An object of class `dpm_fit`: a list with
 
 ``` r
 if (FALSE) { # \dontrun{
-fit <- run_dpm(dpm_data, n_iter = 30000, burnin = 25000, thin = 1, seed = 123)
+fit <- run_thread(thread_data, n_iter = 30000, burnin = 25000, thin = 1, seed = 123)
 table(fit$diagnostics$cluster_counts)
 } # }
 ```
