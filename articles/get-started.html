@@ -89,6 +89,18 @@ to demonstrate the software interface and must not be used for
 biological interpretation.</p>
 </div>
 <div class="section level2">
+<h2 id="statistical-model">Statistical model<a class="anchor" aria-label="anchor" href="#statistical-model"></a>
+</h2>
+<p>THREAD uses a heteroscedastic module-specific regression model of the
+form</p>
+<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>∣</mo><msub><mi>c</mi><mi>i</mi></msub><mo>=</mo><mi>k</mi><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>x</mi><mi>i</mi><mi>⊤</mi></msubsup><msub><mi>γ</mi><mi>k</mi></msub><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>d</mi><mrow><mn>0</mn><mi>i</mi></mrow></msub><mo>+</mo><msub><mi>d</mi><mrow><mn>1</mn><mi>i</mi></mrow></msub><msub><mi>μ</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>+</mo><msub><mi>d</mi><mrow><mn>2</mn><mi>i</mi></mrow></msub><msubsup><mi>μ</mi><mrow><mi>i</mi><mi>k</mi></mrow><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>μ</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msubsup><mi>x</mi><mi>i</mi><mi>⊤</mi></msubsup><msub><mi>γ</mi><mi>k</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
+y_i \mid c_i = k \sim \mathcal{N}\left(x_i^\top \gamma_k,\;
+d_{0i} + d_{1i}\mu_{ik} + d_{2i}\mu_{ik}^{2}\right),
+\qquad
+\mu_{ik} = x_i^\top \gamma_k.
+</annotation></semantics></math></p>
+</div>
+<div class="section level2">
 <h2 id="load-the-installed-example-data">Load the installed example data<a class="anchor" aria-label="anchor" href="#load-the-installed-example-data"></a>
 </h2>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -379,6 +391,23 @@ analysis.</p>
 than an independent significance test. Biological conclusions should
 combine module enrichment, transcription-factor analysis, external
 validation, and other downstream evidence.</p>
+</div>
+<div class="section level2">
+<h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
+</h2>
+<p>For formal analyses, record at least:</p>
+<ul>
+<li>THREAD package version;</li>
+<li>Git commit or GitHub release tag;</li>
+<li>random seed;</li>
+<li>GWAS and expression input versions;</li>
+<li>genome build and LD ancestry;</li>
+<li>response diagnostics;</li>
+<li>
+<code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code>.</li>
+</ul>
+<p>The included example data are checked by automated regression and
+end-to-end tests.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>

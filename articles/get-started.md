@@ -17,6 +17,18 @@ The installed example data are deliberately small. They are intended to
 demonstrate the software interface and must not be used for biological
 interpretation.
 
+## Statistical model
+
+THREAD uses a heteroscedastic module-specific regression model of the
+form
+
+``` math
+y_i \mid c_i = k \sim \mathcal{N}\left(x_i^\top \gamma_k,\;
+d_{0i} + d_{1i}\mu_{ik} + d_{2i}\mu_{ik}^{2}\right),
+\qquad
+\mu_{ik} = x_i^\top \gamma_k.
+```
+
 ## Load the installed example data
 
 ``` r
@@ -321,3 +333,18 @@ The gene score is an expression-weighted prioritization score rather
 than an independent significance test. Biological conclusions should
 combine module enrichment, transcription-factor analysis, external
 validation, and other downstream evidence.
+
+## Reproducibility
+
+For formal analyses, record at least:
+
+- THREAD package version;
+- Git commit or GitHub release tag;
+- random seed;
+- GWAS and expression input versions;
+- genome build and LD ancestry;
+- response diagnostics;
+- [`sessionInfo()`](https://rdrr.io/r/utils/sessionInfo.html).
+
+The included example data are checked by automated regression and
+end-to-end tests.
