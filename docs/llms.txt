@@ -1,0 +1,151 @@
+# THREAD
+
+[![R-CMD-check](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/R-CMD-check.yaml)
+[![pkgdown](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/pkgdown.yaml/badge.svg)](https://github.com/Jiacheng-Lou/THREAD/actions/workflows/pkgdown.yaml)
+
+**THREAD** (*Trait Heterogeneity Regression through Expression
+Annotation and Dirichlet processes*) integrates LD-corrected gene-level
+GWAS responses with gene-by-cellular-label expression profiles. Its
+heteroscedastic Bayesian nonparametric model infers latent gene modules
+and module-specific cellular coefficients.
+
+Analyses can begin with raw GWAS and single-cell data or with prepared
+SNP-to-gene mappings, gene-level responses, or model inputs.
+
+## Main capabilities
+
+- Preprocess GWAS summaries and aggregate single-cell expression into a
+  gene-by-cellular-label matrix.
+- Map SNPs to genes and construct LD-corrected gene-level responses with
+  heteroscedastic uncertainty.
+- Infer latent gene modules and module-specific cellular coefficients
+  with a Dirichlet process mixture.
+- Assess module-cellular-label associations using frequentist and
+  Bayesian criteria.
+- Produce downstream gene and cellular-label prioritization scores.
+
+## Installation
+
+Install the development version from GitHub and load the package:
+
+``` r
+
+remotes::install_github("Jiacheng-Lou/THREAD", build_vignettes = TRUE)
+library(THREAD)
+```
+
+## Quick start
+
+The installed example data demonstrate the interface only; they do not
+support biological conclusions. This example prepares model input from
+an expression matrix and a gene-level response:
+
+``` r
+
+library(THREAD)
+
+example_dir <- system.file(
+  "extdata", "example", package = "THREAD", mustWork = TRUE
+)
+example_X <- readRDS(file.path(example_dir, "example_x.rds"))
+example_response <- readRDS(file.path(example_dir, "example_response.rds"))
+
+thread_data <- prepare_input(
+  X = example_X,
+  response = example_response,
+  K_init = 3L,
+  min_genes = 10L,
+  seed = 2028L,
+  verbose = TRUE
+)
+```
+
+See [Getting
+Started](https://jiacheng-lou.github.io/THREAD/articles/get-started.html)
+for fitting, partitioning, association inference, and scores.
+
+## Documentation
+
+- [THREAD website](https://jiacheng-lou.github.io/THREAD/)
+- [Getting Started with
+  THREAD](https://jiacheng-lou.github.io/THREAD/articles/get-started.html)
+- [Computing the LD-Corrected Gene-Level
+  Response](https://jiacheng-lou.github.io/THREAD/articles/compute-gene-response.html)
+- [THREAD Input Formats and Workflow Entry
+  Points](https://jiacheng-lou.github.io/THREAD/articles/input-formats-and-entry-points.html)
+- [Function
+  reference](https://jiacheng-lou.github.io/THREAD/reference/index.html)
+
+Full genome-wide LD reference data are not bundled with THREAD.
+Workflows that compute gene-level responses require a compatible
+external LD reference; see the response and input-format articles for
+details.
+
+## Citation
+
+To obtain the current package citation, run:
+
+``` r
+
+citation("THREAD")
+```
+
+## License
+
+THREAD is released under GPL-3.
+
+## Issues and contact
+
+Report software problems through [GitHub
+Issues](https://github.com/Jiacheng-Lou/THREAD/issues). For scientific
+questions, contact <jiachenglou82@gmail.com>.
+
+# Package index
+
+## All functions
+
+- [`cell_type_score()`](https://jiacheng-lou.github.io/THREAD/reference/cell_type_score.md)
+  : Integrated cell-subtype importance score (PLACEHOLDER)
+- [`combine_response_by_chr()`](https://jiacheng-lou.github.io/THREAD/reference/combine_response_by_chr.md)
+  : Combine chromosome-level response files
+- [`compute_response()`](https://jiacheng-lou.github.io/THREAD/reference/compute_response.md)
+  : Compute LD-based heteroscedastic gene-level THREAD response
+- [`gene_score()`](https://jiacheng-lou.github.io/THREAD/reference/gene_score.md)
+  : Score and rank genes within each module
+- [`get_partition()`](https://jiacheng-lou.github.io/THREAD/reference/get_partition.md)
+  : Point estimate of the gene partition from a fitted THREAD model
+- [`init_clusters()`](https://jiacheng-lou.github.io/THREAD/reference/init_clusters.md)
+  : Generate initial gene-cluster labels
+- [`match_snps_to_genes()`](https://jiacheng-lou.github.io/THREAD/reference/match_snps_to_genes.md)
+  : Match GWAS SNPs to gene windows
+- [`prepare_input()`](https://jiacheng-lou.github.io/THREAD/reference/prepare_input.md)
+  : Prepare THREAD model input
+- [`preprocess_gwas()`](https://jiacheng-lou.github.io/THREAD/reference/preprocess_gwas.md)
+  : Quality-control and harmonise GWAS summary statistics
+- [`preprocess_scrna()`](https://jiacheng-lou.github.io/THREAD/reference/preprocess_scrna.md)
+  : Preprocess single-cell expression into a THREAD expression matrix
+- [`read_gene2vec()`](https://jiacheng-lou.github.io/THREAD/reference/read_gene2vec.md)
+  : Read a gene2vec embedding file
+- [`read_gene_annotation()`](https://jiacheng-lou.github.io/THREAD/reference/read_gene_annotation.md)
+  : Read a gene annotation table
+- [`recommend_priors()`](https://jiacheng-lou.github.io/THREAD/reference/recommend_priors.md)
+  : Recommend empirical-Bayes prior hyperparameters
+- [`run_thread()`](https://jiacheng-lou.github.io/THREAD/reference/run_thread.md)
+  : Fit the THREAD model by MCMC
+- [`standardize_gene_annotation_for_matching()`](https://jiacheng-lou.github.io/THREAD/reference/standardize_gene_annotation_for_matching.md)
+  : Standardize a gene annotation table for SNP-to-gene matching
+- [`standardize_gwas_for_matching()`](https://jiacheng-lou.github.io/THREAD/reference/standardize_gwas_for_matching.md)
+  : Standardize GWAS summary statistics for SNP-to-gene matching
+- [`test_significance()`](https://jiacheng-lou.github.io/THREAD/reference/test_significance.md)
+  : Dual-significance testing of module / cell-subtype associations
+
+# Articles
+
+### Core workflows
+
+- [Getting Started with
+  THREAD](https://jiacheng-lou.github.io/THREAD/articles/get-started.md):
+- [Computing the LD-Corrected Gene-Level
+  Response](https://jiacheng-lou.github.io/THREAD/articles/compute-gene-response.md):
+- [THREAD Input Formats and Workflow Entry
+  Points](https://jiacheng-lou.github.io/THREAD/articles/input-formats-and-entry-points.md):

@@ -7,8 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>THREAD • THREAD</title>
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="THREAD">
 <meta name="description" content="Trait Heterogeneity Regression through Expression Annotation and Dirichlet processes using LD-corrected gene-level GWAS responses and gene-by-cellular-label expression profiles.
@@ -63,72 +63,41 @@
 <div class="page-header"><h1 id="thread">THREAD<a class="anchor" aria-label="anchor" href="#thread"></a>
 </h1></div>
 <p><a href="https://github.com/Jiacheng-Lou/THREAD/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/Jiacheng-Lou/THREAD/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <a href="https://github.com/Jiacheng-Lou/THREAD/actions/workflows/pkgdown.yaml" class="external-link"><img src="https://github.com/Jiacheng-Lou/THREAD/actions/workflows/pkgdown.yaml/badge.svg" alt="pkgdown"></a></p>
-<p><strong>THREAD</strong> (<em>Trait Heterogeneity Regression through Expression Annotation and Dirichlet processes</em>) is an R package for integrating LD-corrected gene-level GWAS response statistics with gene-by-cellular-label expression profiles. THREAD infers latent gene modules and estimates module-specific cellular coefficients under a heteroscedastic Bayesian nonparametric model.</p>
-<p>The package supports a modular workflow. Users can start from raw GWAS and single-cell inputs, from an externally prepared SNP-to-gene map, from an existing gene-level response, or directly from a prepared THREAD model object.</p>
+<p><strong>THREAD</strong> (<em>Trait Heterogeneity Regression through Expression Annotation and Dirichlet processes</em>) integrates LD-corrected gene-level GWAS responses with gene-by-cellular-label expression profiles. Its heteroscedastic Bayesian nonparametric model infers latent gene modules and module-specific cellular coefficients.</p>
+<p>Analyses can begin with raw GWAS and single-cell data or with prepared SNP-to-gene mappings, gene-level responses, or model inputs.</p>
 <div class="section level2">
 <h2 id="main-capabilities">Main capabilities<a class="anchor" aria-label="anchor" href="#main-capabilities"></a>
 </h2>
-<p>THREAD provides:</p>
 <ul>
-<li>preprocessing of GWAS summary statistics;</li>
-<li>aggregation of single-cell expression into a gene-by-cellular-label matrix;</li>
-<li>SNP-to-gene mapping using the annotated gene body plus a configurable genomic window;</li>
-<li>LD-aware construction of the gene-level response and heteroscedastic variance terms;</li>
-<li>SNP-name and chromosome-position matching modes;</li>
-<li>automatic reciprocal completion and symmetrization of sparse LD records;</li>
-<li>trace-preserving PSD repair by eigenvalue clipping;</li>
-<li>gene2vec-based or k-means-based initialization;</li>
-<li>Bayesian Dirichlet process mixture fitting;</li>
-<li>posterior-similarity-based gene partitioning;</li>
-<li>frequentist and Bayesian module-cellular-label inference;</li>
-<li>downstream gene and cellular-label prioritization scores.</li>
+<li>Preprocess GWAS summaries and aggregate single-cell expression into a gene-by-cellular-label matrix.</li>
+<li>Map SNPs to genes and construct LD-corrected gene-level responses with heteroscedastic uncertainty.</li>
+<li>Infer latent gene modules and module-specific cellular coefficients with a Dirichlet process mixture.</li>
+<li>Assess module-cellular-label associations using frequentist and Bayesian criteria.</li>
+<li>Produce downstream gene and cellular-label prioritization scores.</li>
 </ul>
 </div>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>Install the development version from GitHub:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">requireNamespace</span>(<span class="st">"remotes"</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)) {</span>
-<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a>  <span class="fu">install.packages</span>(<span class="st">"remotes"</span>)</span>
-<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a>}</span>
-<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a></span>
-<span id="cb1-5"><a href="#cb1-5" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(</span>
-<span id="cb1-6"><a href="#cb1-6" tabindex="-1"></a>  <span class="st">"Jiacheng-Lou/THREAD"</span>,</span>
-<span id="cb1-7"><a href="#cb1-7" tabindex="-1"></a>  <span class="at">build_vignettes =</span> <span class="cn">TRUE</span></span>
-<span id="cb1-8"><a href="#cb1-8" tabindex="-1"></a>)</span>
-<span id="cb1-9"><a href="#cb1-9" tabindex="-1"></a></span>
-<span id="cb1-10"><a href="#cb1-10" tabindex="-1"></a>Load the package<span class="sc">:</span></span>
-<span id="cb1-11"><a href="#cb1-11" tabindex="-1"></a></span>
-<span id="cb1-12"><a href="#cb1-12" tabindex="-1"></a><span class="st">```</span><span class="at">r</span></span>
-<span id="cb1-13"><a href="#cb1-13" tabindex="-1"></a><span class="at">library(THREAD)</span></span></code></pre></div>
+<p>Install the development version from GitHub and load the package:</p>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Jiacheng-Lou/THREAD"</span>, build_vignettes <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jiacheng-lou.github.io/THREAD/">THREAD</a></span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="quick-start-with-the-installed-example-data">Quick start with the installed example data<a class="anchor" aria-label="anchor" href="#quick-start-with-the-installed-example-data"></a>
+<h2 id="quick-start">Quick start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<p>THREAD includes a compact AD-derived example containing 200 genes and 31 cellular labels. The example is intended only for software testing and interface demonstration; it is not a complete disease analysis and should not be interpreted biologically.</p>
+<p>The installed example data demonstrate the interface only; they do not support biological conclusions. This example prepares model input from an expression matrix and a gene-level response:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://jiacheng-lou.github.io/THREAD/">THREAD</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">example_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span></span>
-<span>  <span class="st">"extdata"</span>,</span>
-<span>  <span class="st">"example"</span>,</span>
-<span>  package <span class="op">=</span> <span class="st">"THREAD"</span>,</span>
-<span>  mustWork <span class="op">=</span> <span class="cn">TRUE</span></span>
+<span>  <span class="st">"extdata"</span>, <span class="st">"example"</span>, package <span class="op">=</span> <span class="st">"THREAD"</span>, mustWork <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span>
+<span><span class="va">example_X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">example_dir</span>, <span class="st">"example_x.rds"</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="va">example_response</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">example_dir</span>, <span class="st">"example_response.rds"</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
-<span><span class="va">example_X</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">example_dir</span>, <span class="st">"example_x.rds"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">example_response</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/readRDS.html" class="external-link">readRDS</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="va">example_dir</span>, <span class="st">"example_response.rds"</span><span class="op">)</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/dim.html" class="external-link">dim</a></span><span class="op">(</span><span class="va">example_X</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">example_response</span><span class="op">)</span></span></code></pre></div>
-<p>Prepare aligned model input:</p>
-<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">thread_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_input.html">prepare_input</a></span><span class="op">(</span></span>
+<span><span class="va">thread_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_input.html">prepare_input</a></span><span class="op">(</span></span>
 <span>  X <span class="op">=</span> <span class="va">example_X</span>,</span>
 <span>  response <span class="op">=</span> <span class="va">example_response</span>,</span>
 <span>  K_init <span class="op">=</span> <span class="fl">3L</span>,</span>
@@ -136,296 +105,25 @@
 <span>  seed <span class="op">=</span> <span class="fl">2028L</span>,</span>
 <span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<p>Run THREAD:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/run_thread.html">run_thread</a></span><span class="op">(</span></span>
-<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>  m <span class="op">=</span> <span class="fl">3L</span>,</span>
-<span>  n_iter <span class="op">=</span> <span class="fl">30000L</span>,</span>
-<span>  burnin <span class="op">=</span> <span class="fl">25000L</span>,</span>
-<span>  thin <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">2028L</span>,</span>
-<span>  save_scales <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>The chain above represents a production-style template. Short chains may be used only for installation checks and software tests, not for scientific inference.</p>
-<p>Obtain a point-estimate partition:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">partition</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_partition.html">get_partition</a></span><span class="op">(</span></span>
-<span>  fit <span class="op">=</span> <span class="va">fit</span>,</span>
-<span>  min_cluster_size <span class="op">=</span> <span class="fl">10L</span>,</span>
-<span>  mode_window <span class="op">=</span> <span class="fl">3L</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">partition</span><span class="op">$</span><span class="va">K</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/table.html" class="external-link">table</a></span><span class="op">(</span><span class="va">partition</span><span class="op">$</span><span class="va">assignments</span><span class="op">)</span></span></code></pre></div>
-<p>Test module-cellular-label associations:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">significance</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/test_significance.html">test_significance</a></span><span class="op">(</span></span>
-<span>  fit <span class="op">=</span> <span class="va">fit</span>,</span>
-<span>  partition <span class="op">=</span> <span class="va">partition</span>,</span>
-<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span>,</span>
-<span>  fdr_thr <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  lfsr_thr <span class="op">=</span> <span class="fl">0.05</span>,</span>
-<span>  cred_mass <span class="op">=</span> <span class="fl">0.95</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">significance</span><span class="op">$</span><span class="va">table</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">significance</span><span class="op">$</span><span class="va">table</span>, <span class="va">dual_significant</span><span class="op">)</span></span></code></pre></div>
-<p>Calculate downstream prioritization scores:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gene_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/gene_score.html">gene_score</a></span><span class="op">(</span></span>
-<span>  partition <span class="op">=</span> <span class="va">partition</span>,</span>
-<span>  coefficients <span class="op">=</span> <span class="va">significance</span><span class="op">$</span><span class="va">coefficients</span>,</span>
-<span>  x_train <span class="op">=</span> <span class="va">thread_data</span><span class="op">$</span><span class="va">x_train</span>,</span>
-<span>  top_n <span class="op">=</span> <span class="fl">20L</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">cellular_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/cell_type_score.html">cell_type_score</a></span><span class="op">(</span><span class="va">significance</span><span class="op">)</span></span>
-<span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">gene_results</span><span class="op">$</span><span class="va">top_genes</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">cellular_results</span><span class="op">)</span></span></code></pre></div>
-</div>
-<div class="section level2">
-<h2 id="complete-gwas-to-thread-workflow">Complete GWAS-to-THREAD workflow<a class="anchor" aria-label="anchor" href="#complete-gwas-to-thread-workflow"></a>
-</h2>
-<div class="section level3">
-<h3 id="id_1-construct-a-gene-by-cellular-label-expression-matrix">1. Construct a gene-by-cellular-label expression matrix<a class="anchor" aria-label="anchor" href="#id_1-construct-a-gene-by-cellular-label-expression-matrix"></a>
-</h3>
-<p>Users who already have an aligned numeric matrix can skip this step. The required orientation is genes in rows and cellular labels in columns.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">X</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/preprocess_scrna.html">preprocess_scrna</a></span><span class="op">(</span></span>
-<span>  object <span class="op">=</span> <span class="va">single_cell_object</span>,</span>
-<span>  subtype_col <span class="op">=</span> <span class="st">"cell_subtype"</span>,</span>
-<span>  already_normalized <span class="op">=</span> <span class="cn">FALSE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p><code><a href="reference/preprocess_scrna.html">preprocess_scrna()</a></code> is an aggregation helper. Upstream quality control, batch correction, integration, and cell annotation remain the user’s responsibility.</p>
-</div>
-<div class="section level3">
-<h3 id="id_2-preprocess-gwas-summary-statistics">2. Preprocess GWAS summary statistics<a class="anchor" aria-label="anchor" href="#id_2-preprocess-gwas-summary-statistics"></a>
-</h3>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gwas_clean</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/preprocess_gwas.html">preprocess_gwas</a></span><span class="op">(</span></span>
-<span>  sumstats <span class="op">=</span> <span class="st">"path/to/gwas.tsv.gz"</span>,</span>
-<span>  col_map <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
-<span>    chrom <span class="op">=</span> <span class="st">"CHR"</span>,</span>
-<span>    pos <span class="op">=</span> <span class="st">"BP"</span>,</span>
-<span>    rsid <span class="op">=</span> <span class="st">"SNP"</span>,</span>
-<span>    beta <span class="op">=</span> <span class="st">"BETA"</span>,</span>
-<span>    se <span class="op">=</span> <span class="st">"SE"</span></span>
-<span>  <span class="op">)</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>The standardized core fields are:</p>
-<pre class="text"><code>chrom, pos, rsid, beta, se</code></pre>
-</div>
-<div class="section level3">
-<h3 id="id_3-map-snps-to-genes">3. Map SNPs to genes<a class="anchor" aria-label="anchor" href="#id_3-map-snps-to-genes"></a>
-</h3>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">gene_annotation</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/read_gene_annotation.html">read_gene_annotation</a></span><span class="op">(</span></span>
-<span>  <span class="st">"path/to/gene_annotation.tsv.gz"</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">gene_snp_matches</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/match_snps_to_genes.html">match_snps_to_genes</a></span><span class="op">(</span></span>
-<span>  gwas <span class="op">=</span> <span class="va">gwas_clean</span>,</span>
-<span>  gene_annotation <span class="op">=</span> <span class="va">gene_annotation</span>,</span>
-<span>  window <span class="op">=</span> <span class="fl">10000</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>The standard mapping output contains:</p>
-<pre class="text"><code>gene_name, snp_name, snp_pos, chrom</code></pre>
-<p>A SNP can map to multiple genes when extended gene windows overlap.</p>
-</div>
-<div class="section level3">
-<h3 id="id_4-compute-the-ld-corrected-gene-level-response">4. Compute the LD-corrected gene-level response<a class="anchor" aria-label="anchor" href="#id_4-compute-the-ld-corrected-gene-level-response"></a>
-</h3>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">checkpoint_dir</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/file.path.html" class="external-link">file.path</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span>, <span class="st">"THREAD_response_checkpoints"</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">response</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/compute_response.html">compute_response</a></span><span class="op">(</span></span>
-<span>  gene_snp_matches <span class="op">=</span> <span class="va">gene_snp_matches</span>,</span>
-<span>  gwas_clean <span class="op">=</span> <span class="va">gwas_clean</span>,</span>
-<span>  ld_dir <span class="op">=</span> <span class="st">"path/to/ld_directory"</span>,</span>
-<span>  match_mode <span class="op">=</span> <span class="st">"snp_name"</span>,</span>
-<span>  genes <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/colnames.html" class="external-link">rownames</a></span><span class="op">(</span><span class="va">X</span><span class="op">)</span>,</span>
-<span>  chromosomes <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">22</span>,</span>
-<span>  n_cores <span class="op">=</span> <span class="fl">20L</span>,</span>
-<span>  max_genes_per_chr <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  max_snps_per_gene <span class="op">=</span> <span class="cn">Inf</span>,</span>
-<span>  include_diagnostics <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  output_dir <span class="op">=</span> <span class="va">checkpoint_dir</span>,</span>
-<span>  save_by_chr <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  resume <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>  drop_failed <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  verbose <span class="op">=</span> <span class="cn">TRUE</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-<p>Each successful gene record contains:</p>
-<pre class="text"><code>gene_name, n_snps, final_y, d0, d1, d2, status</code></pre>
-<p>Additional LD completeness and PSD-repair diagnostics are retained when <code>include_diagnostics = TRUE</code>.</p>
-<p>THREAD retains negative values of <code>final_y</code>. They are not truncated or log transformed.</p>
-</div>
-<div class="section level3">
-<h3 id="id_5-prepare-fit-partition-and-infer">5. Prepare, fit, partition, and infer<a class="anchor" aria-label="anchor" href="#id_5-prepare-fit-partition-and-infer"></a>
-</h3>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">thread_data</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/prepare_input.html">prepare_input</a></span><span class="op">(</span></span>
-<span>  X <span class="op">=</span> <span class="va">X</span>,</span>
-<span>  response <span class="op">=</span> <span class="va">response</span>,</span>
-<span>  gene2vec <span class="op">=</span> <span class="cn">NULL</span>,</span>
-<span>  K_init <span class="op">=</span> <span class="fl">10L</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">2028L</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/run_thread.html">run_thread</a></span><span class="op">(</span></span>
-<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span>,</span>
-<span>  alpha <span class="op">=</span> <span class="fl">0.1</span>,</span>
-<span>  m <span class="op">=</span> <span class="fl">3L</span>,</span>
-<span>  n_iter <span class="op">=</span> <span class="fl">30000L</span>,</span>
-<span>  burnin <span class="op">=</span> <span class="fl">25000L</span>,</span>
-<span>  thin <span class="op">=</span> <span class="fl">1L</span>,</span>
-<span>  seed <span class="op">=</span> <span class="fl">2028L</span></span>
-<span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">partition</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/get_partition.html">get_partition</a></span><span class="op">(</span><span class="va">fit</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">significance</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/test_significance.html">test_significance</a></span><span class="op">(</span></span>
-<span>  fit <span class="op">=</span> <span class="va">fit</span>,</span>
-<span>  partition <span class="op">=</span> <span class="va">partition</span>,</span>
-<span>  thread_data <span class="op">=</span> <span class="va">thread_data</span></span>
-<span><span class="op">)</span></span></code></pre></div>
-</div>
-</div>
-<div class="section level2">
-<h2 id="ld-reference-data">LD reference data<a class="anchor" aria-label="anchor" href="#ld-reference-data"></a>
-</h2>
-<p>Full genome-wide LD files are not bundled with the package. Users must supply a compatible, ancestry-matched external LD reference in the documented input format; see the <em>Computing the LD-Corrected Gene-Level Response</em> vignette.</p>
-<p>For SNP-name matching, chromosome-specific LD files should contain:</p>
-<pre class="text"><code>SNP_A, SNP_B, R</code></pre>
-<p>For position matching, they should additionally contain:</p>
-<pre class="text"><code>BP_A, BP_B</code></pre>
-<p>A typical directory contains one file per chromosome:</p>
-<pre class="text"><code>ld_directory/
-├── 1.rds
-├── 2.rds
-├── ...
-└── 22.rds</code></pre>
-<p>Sparse LD storage may contain only one orientation of an off-diagonal pair. THREAD automatically restores the reciprocal value and constructs a symmetric gene-level matrix. Pairs absent in both directions are treated as zero and reported through diagnostics.</p>
-<p>All GWAS, gene annotation, SNP-to-gene mapping, and LD resources used in position mode must use the same genome build.</p>
-</div>
-<div class="section level2">
-<h2 id="supported-workflow-entry-points">Supported workflow entry points<a class="anchor" aria-label="anchor" href="#supported-workflow-entry-points"></a>
-</h2>
-<table class="table">
-<colgroup>
-<col width="50%">
-<col width="50%">
-</colgroup>
-<thead><tr>
-<th>Available inputs</th>
-<th>First THREAD function</th>
-</tr></thead>
-<tbody>
-<tr>
-<td>Raw single-cell data and raw GWAS</td>
-<td>
-<code><a href="reference/preprocess_scrna.html">preprocess_scrna()</a></code> and <code><a href="reference/preprocess_gwas.html">preprocess_gwas()</a></code>
-</td>
-</tr>
-<tr>
-<td>Gene-by-label matrix and raw GWAS</td>
-<td><code><a href="reference/preprocess_gwas.html">preprocess_gwas()</a></code></td>
-</tr>
-<tr>
-<td>Clean GWAS and gene annotation</td>
-<td><code><a href="reference/match_snps_to_genes.html">match_snps_to_genes()</a></code></td>
-</tr>
-<tr>
-<td>SNP-gene map, clean GWAS, and LD</td>
-<td><code><a href="reference/compute_response.html">compute_response()</a></code></td>
-</tr>
-<tr>
-<td>Expression matrix and gene-level response</td>
-<td><code><a href="reference/prepare_input.html">prepare_input()</a></code></td>
-</tr>
-<tr>
-<td>Prepared <code>thread_data</code> object</td>
-<td><code><a href="reference/run_thread.html">run_thread()</a></code></td>
-</tr>
-<tr>
-<td>Fitted <code>thread_fit</code> object</td>
-<td><code><a href="reference/get_partition.html">get_partition()</a></code></td>
-</tr>
-<tr>
-<td>Fit, partition, and model data</td>
-<td><code><a href="reference/test_significance.html">test_significance()</a></code></td>
-</tr>
-<tr>
-<td>Significance output</td>
-<td>
-<code><a href="reference/gene_score.html">gene_score()</a></code> and <code><a href="reference/cell_type_score.html">cell_type_score()</a></code>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="section level2">
-<h2 id="statistical-interpretation">Statistical interpretation<a class="anchor" aria-label="anchor" href="#statistical-interpretation"></a>
-</h2>
-<p>THREAD uses a heteroscedastic module-specific regression model of the form</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>y</mi><mi>i</mi></msub><mo>∣</mo><msub><mi>c</mi><mi>i</mi></msub><mo>=</mo><mi>k</mi><mo>∼</mo><mi>𝒩</mi><mrow><mo stretchy="true" form="prefix">(</mo><msubsup><mi>x</mi><mi>i</mi><mi>⊤</mi></msubsup><msub><mi>γ</mi><mi>k</mi></msub><mo>,</mo><mspace width="0.278em"></mspace><msub><mi>d</mi><mrow><mn>0</mn><mi>i</mi></mrow></msub><mo>+</mo><msub><mi>d</mi><mrow><mn>1</mn><mi>i</mi></mrow></msub><msub><mi>μ</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>+</mo><msub><mi>d</mi><mrow><mn>2</mn><mi>i</mi></mrow></msub><msubsup><mi>μ</mi><mrow><mi>i</mi><mi>k</mi></mrow><mn>2</mn></msubsup><mo stretchy="true" form="postfix">)</mo></mrow><mo>,</mo><mspace width="2.0em"></mspace><msub><mi>μ</mi><mrow><mi>i</mi><mi>k</mi></mrow></msub><mo>=</mo><msubsup><mi>x</mi><mi>i</mi><mi>⊤</mi></msubsup><msub><mi>γ</mi><mi>k</mi></msub><mi>.</mi></mrow><annotation encoding="application/x-tex">
-y_i \mid c_i = k \sim \mathcal{N}\left(x_i^\top \gamma_k,\;
-d_{0i} + d_{1i}\mu_{ik} + d_{2i}\mu_{ik}^{2}\right),
-\qquad
-\mu_{ik} = x_i^\top \gamma_k.
-</annotation></semantics></math></p>
-<p>Gene modules are inferred through a Dirichlet process mixture. Module-cellular-label associations are evaluated using both:</p>
-<ul>
-<li>a one-sided FGLS-based test with BH FDR control;</li>
-<li>a Bayesian posterior sign criterion reported through the package lFSR output.</li>
-</ul>
-<p>An association is marked <code>dual_significant</code> only when both criteria pass their configured thresholds.</p>
-<p>For a module with no more genes than predictors, THREAD retains descriptive coefficients but sets frequentist standard errors, P values, and FDR values to <code>NA</code>. Such a module cannot be dual-significant.</p>
+<p>See <a href="https://jiacheng-lou.github.io/THREAD/articles/get-started.html">Getting Started</a> for fitting, partitioning, association inference, and scores.</p>
 </div>
 <div class="section level2">
 <h2 id="documentation">Documentation<a class="anchor" aria-label="anchor" href="#documentation"></a>
 </h2>
-<p>After installation:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/browseVignettes.html" class="external-link">browseVignettes</a></span><span class="op">(</span><span class="st">"THREAD"</span><span class="op">)</span></span></code></pre></div>
-<p>The package includes:</p>
 <ul>
-<li><strong>Getting Started with THREAD</strong></li>
-<li><strong>Computing the LD-Corrected Gene-Level Response</strong></li>
-<li><strong>THREAD Input Formats and Workflow Entry Points</strong></li>
+<li><a href="https://jiacheng-lou.github.io/THREAD/">THREAD website</a></li>
+<li><a href="https://jiacheng-lou.github.io/THREAD/articles/get-started.html">Getting Started with THREAD</a></li>
+<li><a href="https://jiacheng-lou.github.io/THREAD/articles/compute-gene-response.html">Computing the LD-Corrected Gene-Level Response</a></li>
+<li><a href="https://jiacheng-lou.github.io/THREAD/articles/input-formats-and-entry-points.html">THREAD Input Formats and Workflow Entry Points</a></li>
+<li><a href="https://jiacheng-lou.github.io/THREAD/reference/index.html">Function reference</a></li>
 </ul>
-<p>The pkgdown site is available at:</p>
-<pre class="text"><code>https://jiacheng-lou.github.io/THREAD/</code></pre>
-</div>
-<div class="section level2">
-<h2 id="reproducibility">Reproducibility<a class="anchor" aria-label="anchor" href="#reproducibility"></a>
-</h2>
-<p>For formal analyses, record at least:</p>
-<ul>
-<li>THREAD package version;</li>
-<li>Git commit or GitHub release tag;</li>
-<li>random seed;</li>
-<li>GWAS and expression input versions;</li>
-<li>genome build and LD ancestry;</li>
-<li>response diagnostics;</li>
-<li>
-<code><a href="https://rdrr.io/r/utils/sessionInfo.html" class="external-link">sessionInfo()</a></code>.</li>
-</ul>
-<p>The included example data are checked by automated regression and end-to-end tests.</p>
+<p>Full genome-wide LD reference data are not bundled with THREAD. Workflows that compute gene-level responses require a compatible external LD reference; see the response and input-format articles for details.</p>
 </div>
 <div class="section level2">
 <h2 id="citation">Citation<a class="anchor" aria-label="anchor" href="#citation"></a>
 </h2>
 <p>To obtain the current package citation, run:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/citation.html" class="external-link">citation</a></span><span class="op">(</span><span class="st">"THREAD"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
@@ -436,10 +134,7 @@ d_{0i} + d_{1i}\mu_{ik} + d_{2i}\mu_{ik}^{2}\right),
 <div class="section level2">
 <h2 id="issues-and-contact">Issues and contact<a class="anchor" aria-label="anchor" href="#issues-and-contact"></a>
 </h2>
-<p>Please report software problems through GitHub Issues:</p>
-<pre class="text"><code>https://github.com/Jiacheng-Lou/THREAD/issues</code></pre>
-<p>For scientific questions, contact:</p>
-<pre class="text"><code><span><span class="va">jiachenglou82</span><span class="op">@</span><span class="va">gmail.com</span></span></code></pre>
+<p>Report software problems through <a href="https://github.com/Jiacheng-Lou/THREAD/issues" class="external-link">GitHub Issues</a>. For scientific questions, contact <a href="mailto:jiachenglou82@gmail.com" class="email">jiachenglou82@gmail.com</a>.</p>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">
@@ -483,7 +178,7 @@ d_{0i} + d_{1i}\mu_{ik} + d_{2i}\mu_{ik}^{2}\right),
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.3.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer>
