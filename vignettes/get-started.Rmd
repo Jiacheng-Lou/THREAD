@@ -162,8 +162,7 @@ significance$module_diagnostics
 subset(significance$table, dual_significant)
 ```
 
-The example contains only 24 genes but 31 cellular predictors. Consequently,
-some or all example modules can be underdetermined for frequentist inference.
+The installed example contains 200 genes and 31 cellular predictors. Some inferred modules may contain fewer genes than predictors, making frequentist inference underdetermined for those modules.
 For such modules, THREAD retains descriptive coefficients but sets the
 frequentist standard error, P value, and FDR to `NA`. They cannot be declared
 dual-significant. This behavior is intentional and allows the example to test
